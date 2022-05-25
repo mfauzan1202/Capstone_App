@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Capstone App</string>
+    <string name="mbadok">MBADOK</string>
+    <string name="login">LOGIN</string>
+    <string name="daftar">DAFTAR</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="name_placeholder">Hello, %1$s</string>
+</resources>
