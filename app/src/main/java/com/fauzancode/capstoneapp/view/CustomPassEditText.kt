@@ -39,7 +39,7 @@ class CustomPassEditText : AppCompatEditText, View.OnTouchListener {
 
     private fun init() {
         clearButtonImage =
-            ContextCompat.getDrawable(context, R.drawable.ic_baseline_clear_24) as Drawable
+            ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
         setOnTouchListener(this)
     }
 

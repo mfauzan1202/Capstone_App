@@ -1,18 +1,11 @@
 package com.fauzancode.capstoneapp.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.view.View
-import android.widget.TextView
-import com.fauzancode.capstoneapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.fauzancode.capstoneapp.databinding.ActivityLoginBinding
 import com.fauzancode.capstoneapp.spannable
+import com.fauzancode.capstoneapp.ui.HomeActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,6 +15,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnSignin.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+        }
 
         val tvsignup = binding.tvSignup
         val text = "Belum punya akun? Daftar!"

@@ -18,15 +18,13 @@
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/heading"
+        android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/poppins"
         android:gravity="center_horizontal|top"
-        android:text="@string/heading"
+        android:text="@string/heading_login"
         android:textAppearance="@style/heading"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,16 +36,14 @@
         android:id="@+id/heading2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:fontFamily="@font/poppins"
         android:gravity="center_horizontal|top"
-        android:text="Cari tahu kuliner menarik di sekitarmu"
+        android:text="@string/heading2_login"
         android:textAppearance="@style/heading"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_email"
@@ -56,7 +52,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="25dp"
-        android:hint="Email"
+        android:hint="@string/email"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"

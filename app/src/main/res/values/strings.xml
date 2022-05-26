@@ -8,5 +8,12 @@
     <string name="email">Email</string>
     <string name="verify_password">Konfirmasi Password</string>
     <string name="name_placeholder">Hello, %1$s</string>
-    <string name="heading">Selamat Datang</string>
+    <string name="heading_login">Selamat Datang</string>
+    <string name="heading2_login">Cari tahu kuliner menarik di sekitarmu</string>
+    <string name="heading_register">Registrasi Akun</string>
+    <string name="heading2_register">Mohon mengisi form dengan sesuai</string>
+    <string name="address">Samarinda, Kalimantan Timur</string>
+    <string name="greetings">Halo, Yuda</string>
+    <string name="subheading1_home">Kuliner disekitar anda</string>
+    <string name="subheading2_home">Rekomendasi</string>
 </resources>

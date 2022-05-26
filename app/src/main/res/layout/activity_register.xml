@@ -18,16 +18,14 @@
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/heading"
+        android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="25dp"
         android:layout_marginTop="70dp"
         android:fontFamily="@font/poppins"
         android:gravity="center_horizontal|top"
-        android:text="@string/heading"
+        android:text="@string/heading_register"
         android:textAppearance="@style/heading"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,16 +36,14 @@
         android:id="@+id/heading2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="25dp"
         android:fontFamily="@font/poppins"
         android:gravity="center_horizontal|top"
-        android:text="Cari tahu kuliner menarik di sekitarmu"
+        android:text="@string/heading2_register"
         android:textAppearance="@style/heading"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_username"
@@ -65,7 +61,7 @@
 
         <com.fauzancode.capstoneapp.view.CustomEmailEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text"/>/>
+            android:background="@drawable/custom_edit_text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +80,7 @@
 
         <com.fauzancode.capstoneapp.view.CustomEmailEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text"/>/>
+            android:background="@drawable/custom_edit_text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -103,7 +99,7 @@
 
         <com.fauzancode.capstoneapp.view.CustomPassEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text"/>/>
+            android:background="@drawable/custom_edit_text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
