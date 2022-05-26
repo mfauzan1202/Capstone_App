@@ -4,99 +4,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cream"
+    android:background="@color/white"
     tools:context=".ui.auth.RegisterActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
     <TextView
-        android:id="@+id/logo"
-        style="@style/logo_style"
+        android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/mbadok"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="@string/heading"
+        android:textAppearance="@style/heading"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_username"
-        style="@style/style_tv_input"
-        android:layout_marginStart="24dp"
-        android:text="@string/username"
-        app:layout_constraintBottom_toTopOf="@+id/et_username"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
+        android:id="@+id/heading2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal|top"
+        android:text="Cari tahu kuliner menarik di sekitarmu"
+        android:textAppearance="@style/heading"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_username"
-        style="@style/style_input_text"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="128dp"
-        android:hint="@string/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:hint="@string/nama"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintTop_toBottomOf="@+id/heading2">
 
-    <TextView
-        android:id="@+id/tv_email"
-        style="@style/style_tv_input"
-        android:layout_marginStart="24dp"
-        android:text="@string/email"
-        app:layout_constraintBottom_toTopOf="@+id/et_email"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.fauzancode.capstoneapp.view.CustomEmailEditText
+            style="@style/style_input_text"
+            android:background="@drawable/custom_edit_text"/>/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.fauzancode.capstoneapp.view.CustomEmailEditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_email"
-        style="@style/style_input_text"
-        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
         android:hint="@string/email"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_username" />
+        app:layout_constraintTop_toBottomOf="@+id/et_username">
 
-    <TextView
-        android:id="@+id/tv_password"
-        style="@style/style_tv_input"
-        android:layout_marginStart="24dp"
-        android:text="@string/password"
-        app:layout_constraintBottom_toTopOf="@+id/et_password"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.fauzancode.capstoneapp.view.CustomEmailEditText
+            style="@style/style_input_text"
+            android:background="@drawable/custom_edit_text"/>/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.fauzancode.capstoneapp.view.CustomPassEditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_password"
-        style="@style/style_input_text"
-        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
         android:hint="@string/password"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+        app:layout_constraintTop_toBottomOf="@+id/et_email">
 
-    <TextView
-        android:id="@+id/tv_verify_password"
-        style="@style/style_tv_input"
-        android:layout_marginStart="24dp"
-        android:text="@string/verify_password"
-        app:layout_constraintBottom_toTopOf="@+id/et_verify_pass"
-        app:layout_constraintStart_toStartOf="parent" />
+        <com.fauzancode.capstoneapp.view.CustomPassEditText
+            style="@style/style_input_text"
+            android:background="@drawable/custom_edit_text"/>/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.fauzancode.capstoneapp.view.CustomPassEditText
-        android:id="@+id/et_verify_pass"
-        style="@style/style_input_text"
-        android:layout_marginTop="48dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_verifiypassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
         android:hint="@string/verify_password"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password">
+
+        <com.fauzancode.capstoneapp.view.CustomPassEditText
+            style="@style/style_input_text"
+            android:background="@drawable/custom_edit_text"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_signup"
         style="@style/style_btn_primary"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="25dp"
         android:text="@string/daftar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_verifiypassword" />
+    <TextView
+        android:id="@+id/tv_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Sudah punya punya akun? Masuk!"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

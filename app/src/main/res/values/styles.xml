@@ -1,50 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="logo_style">
-        <item name="android:textSize">40sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="style_btn_primary">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">24dp</item>
-        <item name="android:layout_marginEnd">24dp</item>
-        <item name="android:background">@drawable/button_yellow</item>
+        <item name="android:layout_marginStart">25dp</item>
+        <item name="android:layout_marginEnd">25dp</item>
+        <item name="android:background">@drawable/button_cream</item>
         <item name="backgroundTint">@null</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="style_btn_secondary">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">24dp</item>
-        <item name="android:layout_marginEnd">24dp</item>
-        <item name="android:background">@drawable/button_coral</item>
-        <item name="backgroundTint">@null</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+<!--    <style name="style_btn_secondary">-->
+<!--        <item name="android:layout_width">0dp</item>-->
+<!--        <item name="android:layout_height">wrap_content</item>-->
+<!--        <item name="android:layout_marginStart">25dp</item>-->
+<!--        <item name="android:layout_marginEnd">25dp</item>-->
+<!--        <item name="android:background">@drawable/button_coral</item>-->
+<!--        <item name="backgroundTint">@null</item>-->
+<!--        <item name="android:fontFamily">sans-serif</item>-->
+<!--        <item name="android:textStyle">bold</item>-->
+<!--    </style>-->
 
     <style name="style_input_text">
-        <item name="android:background">@drawable/custom_edit_text</item>
-        <item name="android:padding">12dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">24dp</item>
-        <item name="android:layout_marginEnd">24dp</item>
         <item name="android:minHeight">48dp</item>
-        <item name="android:textColorHint">@color/gray</item>
-        <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="style_tv_input">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
+<!--    <style name="style_tv_input">-->
+<!--        <item name="android:layout_width">wrap_content</item>-->
+<!--        <item name="android:layout_height">wrap_content</item>-->
+<!--        <item name="android:layout_marginBottom">4dp</item>-->
+<!--        <item name="android:textSize">20sp</item>-->
+<!--        <item name="android:textStyle">bold</item>-->
+<!--    </style>-->
+
+    <style name="heading">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#000000</item>
     </style>
 </resources>
