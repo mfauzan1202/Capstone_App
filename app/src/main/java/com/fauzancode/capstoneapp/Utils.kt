@@ -22,6 +22,7 @@ fun spannable(view: TextView, text: String, spanStart: Int, spanEnd: Int, contex
 
         override fun updateDrawState(ds: TextPaint) {
             super.updateDrawState(ds)
+            ds.color = context.resources.getColor(R.color.cream)
             ds.isUnderlineText = false
         }
     }
