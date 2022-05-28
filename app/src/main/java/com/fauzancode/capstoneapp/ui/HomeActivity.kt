@@ -1,6 +1,7 @@
 package com.fauzancode.capstoneapp.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,11 @@ class HomeActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         binding.navbar.itemIconTintList = null
+
+        binding.circleImageView2.setOnClickListener {
+            val intent = Intent(this, DetailActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 
