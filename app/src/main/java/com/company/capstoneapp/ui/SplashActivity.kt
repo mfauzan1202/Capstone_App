@@ -1,13 +1,12 @@
-package com.fauzancode.capstoneapp.ui
+package com.company.capstoneapp.ui
 
-import android.app.PendingIntent
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.fauzancode.capstoneapp.R
-import com.fauzancode.capstoneapp.ui.auth.LoginActivity
+import com.company.capstoneapp.R
+import com.company.capstoneapp.ui.auth.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,24 +1,20 @@
-package com.fauzancode.capstoneapp.view
+package com.company.capstoneapp.view
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Rect
-import android.graphics.drawable.Drawable
+import android.text.InputType
 import android.util.AttributeSet
-import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
-import com.fauzancode.capstoneapp.R
+import com.company.capstoneapp.R
 
-class CustomEmailEditText : AppCompatEditText, View.OnTouchListener {
 
-    private lateinit var clearButtonImage: Drawable
+class CustomPassEditText : AppCompatEditText, View.OnTouchListener {
 
     constructor(context: Context) : super(context) {
         init()
-    }
+            }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init()
@@ -28,19 +24,13 @@ class CustomEmailEditText : AppCompatEditText, View.OnTouchListener {
         context,
         attrs,
         defStyleAttr
-    ) {
+    ){
         init()
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-    }
-
     private fun init() {
-        clearButtonImage =
-            ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
         setOnTouchListener(this)
+        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
     }
 
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
@@ -49,16 +39,17 @@ class CustomEmailEditText : AppCompatEditText, View.OnTouchListener {
 
     override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect)
-        if (!focused) {
-            error = if (!isEmailValid(text)) {
-                "Please input the right format of email"
+            setError(if (text.toString().trim().length < 6) {
+                "Password must contain at least 6 character"
             } else {
                 null
-            }
+            }, null)
+        background = if (error != null){
+            resources.getDrawable(R.drawable.custom_edit_text_error)
+        }else{
+            resources.getDrawable(R.drawable.custom_edit_text)
         }
+
     }
 
-    private fun isEmailValid(email: CharSequence?): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
 }

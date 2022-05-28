@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.fauzancode.capstoneapp">
+    package="com.company.capstoneapp">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- internet -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- acceslocation -->
@@ -18,30 +18,33 @@
         android:theme="@style/Theme.CapstoneApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ProfileActivity"
+            android:name="com.company.capstoneapp.ui.home.HomeMapActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.DetailActivity"
+            android:name="com.company.capstoneapp.ui.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.company.capstoneapp.ui.DetailActivity"
             android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAihM5oQ55IDRGILU2oB2UBBWNH_K0A-Mc" />
+            android:value="AIzaSyAqbZqVMj_I7Bin1yqaXZXt-AVxqvZ8dAA" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".ui.HomeActivity"
+            android:name="com.company.capstoneapp.ui.home.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.RegisterActivity"
+            android:name="com.company.capstoneapp.ui.auth.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.LoginActivity"
-            android:exported="false"/>
+            android:name="com.company.capstoneapp.ui.auth.LoginActivity"
+            android:exported="false" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name="com.company.capstoneapp.ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
