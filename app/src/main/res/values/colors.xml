@@ -13,4 +13,6 @@
     <color name="coral">#F66547</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
+    <color name="like_red">#F47174</color>
+    <color name="like_gray">#D9D4D4</color>
 </resources>

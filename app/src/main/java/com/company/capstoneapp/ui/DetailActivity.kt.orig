@@ -2,16 +2,21 @@ package com.company.capstoneapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+<<<<<<< HEAD:app/src/main/java/com/company/capstoneapp/ui/DetailActivity.kt
+import com.company.capstoneapp.R
+=======
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.company.capstoneapp.R
-import com.company.capstoneapp.databinding.ActivityDetailBinding
+import com.fauzancode.capstoneapp.R
+import com.fauzancode.capstoneapp.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDetailBinding
     private var isFavorite: Boolean = false
+>>>>>>> page/detail-makanan:app/src/main/java/com/fauzancode/capstoneapp/ui/DetailActivity.kt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

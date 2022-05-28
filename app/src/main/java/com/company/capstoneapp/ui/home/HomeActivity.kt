@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
 import com.company.capstoneapp.ApiConfig
-import com.company.capstoneapp.DataAccesInfo
 import com.company.capstoneapp.DataFood
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityHomeBinding
@@ -17,7 +16,6 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class HomeActivity : AppCompatActivity(){
 
@@ -33,7 +31,7 @@ class HomeActivity : AppCompatActivity(){
         binding.apply {
             navbar.itemIconTintList = null
             tvUsername.text =
-                resources.getString(R.string.name_placeholder, userInfo.getString("name", null))
+                resources.getString(R.string.name_placeholder, userInfo.getString("name", "Unknown"))
             Glide.with(this@HomeActivity)
                 .load(userInfo.getString("urlPhoto", null))
                 .into(ivAvatar)
