@@ -1,4 +1,4 @@
-package com.fauzancode.capstoneapp
+package com.company.capstoneapp
 
 import org.junit.Test
 

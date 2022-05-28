@@ -59,9 +59,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading2">
 
-        <com.fauzancode.capstoneapp.view.CustomEmailEditText
+        <com.company.capstoneapp.view.CustomEmailEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text" />
+            android:background="@drawable/custom_edit_text"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -72,14 +73,14 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
+        app:passwordToggleEnabled="true"
         android:hint="@string/password"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_email">
-
-        <com.fauzancode.capstoneapp.view.CustomPassEditText
+        <com.company.capstoneapp.view.CustomPassEditText
             style="@style/style_input_text"
             android:background="@drawable/custom_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -108,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_signin" />
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/signInButton"
+        android:id="@+id/googleSignInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"

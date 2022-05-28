@@ -1,4 +1,4 @@
-package com.fauzancode.capstoneapp
+package com.company.capstoneapp
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

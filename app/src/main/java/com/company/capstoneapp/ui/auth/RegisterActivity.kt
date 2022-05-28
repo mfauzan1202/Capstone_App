@@ -1,12 +1,10 @@
-package com.fauzancode.capstoneapp.ui.auth
+package com.company.capstoneapp.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.fauzancode.capstoneapp.R
-import com.fauzancode.capstoneapp.databinding.ActivityLoginBinding
-import com.fauzancode.capstoneapp.databinding.ActivityRegisterBinding
-import com.fauzancode.capstoneapp.spannable
+import com.company.capstoneapp.databinding.ActivityRegisterBinding
+import com.company.capstoneapp.spannable
 
 class RegisterActivity : AppCompatActivity() {
 

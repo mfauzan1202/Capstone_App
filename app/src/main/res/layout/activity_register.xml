@@ -59,9 +59,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading2">
 
-        <com.fauzancode.capstoneapp.view.CustomEmailEditText
+        <com.company.capstoneapp.view.CustomNameEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text"/>
+            android:background="@drawable/custom_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -78,9 +78,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_username">
 
-        <com.fauzancode.capstoneapp.view.CustomEmailEditText
+        <com.company.capstoneapp.view.CustomEmailEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text"/>
+            android:background="@drawable/custom_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,11 +95,12 @@
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email">
+        app:layout_constraintTop_toBottomOf="@+id/et_email"
+        app:passwordToggleEnabled="true">
 
-        <com.fauzancode.capstoneapp.view.CustomPassEditText
+        <com.company.capstoneapp.view.CustomPassEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text"/>
+            android:background="@drawable/custom_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -114,11 +115,12 @@
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password">
+        app:layout_constraintTop_toBottomOf="@+id/et_password"
+        app:passwordToggleEnabled="true">
 
-        <com.fauzancode.capstoneapp.view.CustomPassEditText
+        <com.company.capstoneapp.view.CustomPassEditText
             style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text"/>
+            android:background="@drawable/custom_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -130,6 +132,7 @@
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_verifiypassword" />
+
     <TextView
         android:id="@+id/tv_signin"
         android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package com.fauzancode.capstoneapp
+package com.company.capstoneapp
 
 import android.app.Activity
 import android.content.Context
