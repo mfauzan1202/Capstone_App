@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.company.capstoneapp.ApiConfig
 import com.company.capstoneapp.DataUser
+import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityLoginBinding
 import com.company.capstoneapp.spannable
 import com.company.capstoneapp.ui.home.HomeActivity
@@ -49,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        binding.apply{
+        binding.apply {
             //sign in with google
             googleSignInButton.setOnClickListener {
                 val signInIntent = mGoogleSignInClient.signInIntent
@@ -60,56 +61,20 @@ class LoginActivity : AppCompatActivity() {
 
             //sign in with our service
             btnSignin.setOnClickListener {
-//                if (etPassword.error != null || etEmail.error != null) {
-//                    Toast.makeText(
-//                        this@LoginActivity,
-//                        "Please fill the field with the right data",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    return@setOnClickListener
-//                }else{
-                    ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/").login(
-                        "AIzaSyDxNLvpSXWVnX-YmXdA4rIGfLbI_4mGB6Q",
+                if (etPassword.error != null || etEmail.error != null) {
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Please fill the field with the right data",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                } else {
+                    handleSignInResult(
                         etEmail.text.toString().trim(),
                         etPassword.text.toString().trim()
-                    ).enqueue(object : Callback<DataUser> {
-                        override fun onResponse(
-                            call: Call<DataUser>,
-                            response: Response<DataUser>
-                        ) {
-                            if (response.isSuccessful) {
-
-                                val responseBody = response.body()
-
-                                if (responseBody != null) {
-                                    val dataUser: DataUser? = responseBody
-                                    getSharedPreferences("login_session", MODE_PRIVATE)
-                                        .edit()
-                                        .putString("localId", dataUser?.localId)
-                                        .putString("email", dataUser?.email)
-                                        .putString("name", dataUser?.displayName)
-                                        .putString("idToken", dataUser?.displayName)
-                                        .apply()
-                                    Toast.makeText(
-                                        this@LoginActivity,
-                                        response.body()?.email,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    finishAffinity()
-                                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
-                                }
-                            }
-                        }
-                        override fun onFailure(call: Call<DataUser>, t: Throwable) {
-                            Log.d(TAG, "ERROR :", t)
-                        }
-
-                    })
-
-//                }
-
+                    )
+                }
             }
-
 
         }
 
@@ -140,17 +105,62 @@ class LoginActivity : AppCompatActivity() {
         val account = completedTask.getResult(
             ApiException::class.java
         )
-                getSharedPreferences("login_session", MODE_PRIVATE)
-                    .edit()
-                    .putString("userId", account.id.toString())
-                    .putString("name", account.displayName.toString())
-                    .putString("email", account.email.toString())
-                    .putString("urlPhoto", account.photoUrl.toString())
-                    .apply()
-                finishAffinity()
-                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+        getSharedPreferences("login_session", MODE_PRIVATE)
+            .edit()
+            .putString("userId", account.id.toString())
+            .putString("name", account.displayName.toString())
+            .putString("email", account.email.toString())
+            .putString("urlPhoto", account.photoUrl.toString())
+            .apply()
+        finishAffinity()
+        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
 //                Log.e(
 //                    "failed code=", ApiException.statusCode.toString()
 //                )
+    }
+
+    private fun handleSignInResult(email: String, password: String) {
+        ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/").login(
+            getString(R.string.API_KEY),
+            email,
+            password
+        ).enqueue(object : Callback<DataUser> {
+            override fun onResponse(
+                call: Call<DataUser>,
+                response: Response<DataUser>
+            ) {
+                if (response.isSuccessful) {
+
+                    val responseBody = response.body()
+
+                    if (responseBody != null) {
+                        val dataUser: DataUser? = responseBody
+                        getSharedPreferences("login_session", MODE_PRIVATE)
+                            .edit()
+                            .putString("localId", dataUser?.localId)
+                            .putString("email", dataUser?.email)
+                            .putString("name", dataUser?.displayName)
+                            .putString("idToken", dataUser?.displayName)
+                            .apply()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            response.body()?.email,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finishAffinity()
+                        startActivity(
+                            Intent(
+                                this@LoginActivity,
+                                HomeActivity::class.java
+                            )
+                        )
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<DataUser>, t: Throwable) {
+                Log.d(TAG, "ERROR :", t)
+            }
+        })
     }
 }
