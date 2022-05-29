@@ -1,13 +1,24 @@
 package com.company.capstoneapp.ui.home
 
+import android.content.ContentValues.TAG
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.company.capstoneapp.ApiConfig
+import com.company.capstoneapp.DataFood
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityHomeBinding
+import com.company.capstoneapp.ui.adapter.ListCulinaryAroundAdapter
+import com.company.capstoneapp.ui.adapter.ListCulinaryRecommendationAdapter
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity(){
 
@@ -27,6 +38,18 @@ class HomeActivity : AppCompatActivity(){
             Glide.with(this@HomeActivity)
                 .load(userInfo.getString("urlPhoto", null))
                 .into(ivAvatar)
+        }
+
+        binding.rvCulinaryAround.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = ListCulinaryAroundAdapter()
+        }
+
+        binding.rvRecommendation.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@HomeActivity)
+            adapter = ListCulinaryRecommendationAdapter()
         }
 
         val jsonObject = JsonObject()
