@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/poppins"
         android:gravity="center_horizontal|top"
         android:text="@string/greetings"
@@ -44,6 +44,20 @@
         app:layout_constraintStart_toStartOf="@+id/tv_username"
         app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
+    <ImageButton
+        android:id="@+id/btn_maps"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="25dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_maps"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/address"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_subheader1"
         android:layout_width="wrap_content"
@@ -60,10 +74,9 @@
         app:layout_constraintTop_toBottomOf="@+id/address" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_culinary_around"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -84,16 +97,21 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/rv_culinary_around" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recommendation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_subheader2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_subheader2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"

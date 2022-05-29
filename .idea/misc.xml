@@ -34,6 +34,7 @@
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable-v24/ic_favorite_checked.xml" value="0.276" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable-v24/ic_favorite_uncheck.xml" value="0.276" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/background_toolbar_translucent.xml" value="0.209" />
+        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/border_radius_30.xml" value="0.158" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/border_radius_8.xml" value="0.276" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/button_cream.xml" value="0.276" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/custom_body_detail_screen.xml" value="0.22" />
@@ -43,12 +44,17 @@
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/ic_clear.xml" value="0.276" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/ic_flag.xml" value="0.276" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/ic_icon_camera.xml" value="0.276" />
+        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/show_password_icon.xml" value="0.158" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/font/poppins.xml" value="0.4171875" />
+        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout-v23/item_culinary_recommendation.xml" value="0.44000000000000006" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_detail.xml" value="0.36" />
-        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_home.xml" value="0.2379110251450677" />
+        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_home.xml" value="0.4" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_home_map.xml" value="0.10925925925925926" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_login.xml" value="0.38697916666666665" />
         <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_register.xml" value="0.38697916666666665" />
+        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/fragment_snack_card.xml" value="0.36" />
+        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/item_culinary_around.xml" value="0.6" />
+        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/item_culinary_recommendation.xml" value="0.44000000000000006" />
       </map>
     </option>
   </component>

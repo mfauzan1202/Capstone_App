@@ -41,7 +41,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                     } else {
                         backgroundTintList = ContextCompat.getColorStateList(this@DetailActivity, R.color.like_gray)
                         binding.btnLike.setImageResource(R.drawable.ic_favorite_uncheck)
-                        Toast.makeText(this@DetailActivity, "Batal Disukai", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@DetailActivity, "Batal Suka", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

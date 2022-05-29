@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.company.capstoneapp.ApiConfig
 import com.company.capstoneapp.DataFood
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityHomeBinding
+import com.company.capstoneapp.ui.adapter.ListCulinaryAroundAdapter
+import com.company.capstoneapp.ui.adapter.ListCulinaryRecommendationAdapter
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -37,6 +40,18 @@ class HomeActivity : AppCompatActivity(){
                 .into(ivAvatar)
         }
 
+        binding.rvCulinaryAround.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = ListCulinaryAroundAdapter()
+        }
+
+        binding.rvRecommendation.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@HomeActivity)
+            adapter = ListCulinaryRecommendationAdapter()
+        }
+
         val jsonObject = JsonObject()
         jsonObject.addProperty("kind", "food")
         jsonObject.addProperty("name", "bika_ambon")
@@ -59,7 +74,6 @@ class HomeActivity : AppCompatActivity(){
                         Log.d( TAG, response.body().toString())
                         dataFood.postValue(response.body())
                     }
-
                 }
 
                 override fun onFailure(call: Call<DataFood>, t: Throwable) {
