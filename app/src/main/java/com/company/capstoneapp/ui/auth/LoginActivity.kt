@@ -5,21 +5,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.company.capstoneapp.DataAccesInfo
 import com.company.capstoneapp.ApiConfig
+import com.company.capstoneapp.DataUser
 import com.company.capstoneapp.databinding.ActivityLoginBinding
 import com.company.capstoneapp.spannable
 import com.company.capstoneapp.ui.home.HomeActivity
-import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +26,7 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val RC_GET_AUTH_CODE = 9003
 
     private lateinit var userData: SharedPreferences
@@ -39,13 +37,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         userData = getSharedPreferences("login_session", MODE_PRIVATE)
-        if (userData.getString("userId", null) != null) {
+        if (userData.getString("localId", null) != null) {
             finishAffinity()
             startActivity(Intent(this, HomeActivity::class.java))
-        }
-
-        binding.btnSignin.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -55,11 +49,68 @@ class LoginActivity : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        binding.googleSignInButton.setOnClickListener {
-            val signInIntent = mGoogleSignInClient.signInIntent
-            startActivityForResult(
-                signInIntent, RC_GET_AUTH_CODE
-            )
+        binding.apply{
+            //sign in with google
+            googleSignInButton.setOnClickListener {
+                val signInIntent = mGoogleSignInClient.signInIntent
+                startActivityForResult(
+                    signInIntent, RC_GET_AUTH_CODE
+                )
+            }
+
+            //sign in with our service
+            btnSignin.setOnClickListener {
+//                if (etPassword.error != null || etEmail.error != null) {
+//                    Toast.makeText(
+//                        this@LoginActivity,
+//                        "Please fill the field with the right data",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    return@setOnClickListener
+//                }else{
+                    ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/").login(
+                        "AIzaSyDxNLvpSXWVnX-YmXdA4rIGfLbI_4mGB6Q",
+                        etEmail.text.toString().trim(),
+                        etPassword.text.toString().trim()
+                    ).enqueue(object : Callback<DataUser> {
+                        override fun onResponse(
+                            call: Call<DataUser>,
+                            response: Response<DataUser>
+                        ) {
+                            if (response.isSuccessful) {
+
+                                val responseBody = response.body()
+
+                                if (responseBody != null) {
+                                    val dataUser: DataUser? = responseBody
+                                    getSharedPreferences("login_session", MODE_PRIVATE)
+                                        .edit()
+                                        .putString("localId", dataUser?.localId)
+                                        .putString("email", dataUser?.email)
+                                        .putString("name", dataUser?.displayName)
+                                        .putString("idToken", dataUser?.displayName)
+                                        .apply()
+                                    Toast.makeText(
+                                        this@LoginActivity,
+                                        response.body()?.email,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    finishAffinity()
+                                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                                }
+                            }
+                        }
+                        override fun onFailure(call: Call<DataUser>, t: Throwable) {
+                            Log.d(TAG, "ERROR :", t)
+                        }
+
+                    })
+
+//                }
+
+            }
+
+
         }
 
         val tvsignup = binding.tvSignup
@@ -80,36 +131,8 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_GET_AUTH_CODE) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data!!)
             handleSignInResult(task)
-            
-            Log.d(TAG, "onActivityResult:GET_AUTH_CODE:success:" + result!!.status.isSuccess)
-            if (result.isSuccess) {
 
-                val acct = result.signInAccount
-                val authCode = acct?.serverAuthCode ?: ""
-
-                ApiConfig.getApiService("https://oauth2.googleapis.com/")
-                    .getAccessToken(
-                        "authorization_code",
-                        "333452533498-qkgrk3qb93r8ru4ruia4cgm3htutanpo.apps.googleusercontent.com",
-                        "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",
-                        authCode
-                    ).enqueue(object : Callback<DataAccesInfo> {
-
-                        override fun onResponse(call: Call<DataAccesInfo>, response: Response<DataAccesInfo>) {
-                            try {
-                                val jsonObject = JSONObject(response.body().toString())
-                                val message: String = jsonObject.toString(5)
-                                Log.i(TAG, message)
-                            } catch (e: JSONException) {
-                                e.printStackTrace()
-                            }
-                        }
-                        override fun onFailure(call: Call<DataAccesInfo>, t: Throwable) {
-                        }
-                    })
-            }
         }
     }
 

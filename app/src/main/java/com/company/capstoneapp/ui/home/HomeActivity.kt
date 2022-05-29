@@ -1,21 +1,13 @@
 package com.company.capstoneapp.ui.home
 
-import android.content.ContentValues.TAG
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
-import com.company.capstoneapp.ApiConfig
-import com.company.capstoneapp.DataFood
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityHomeBinding
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeActivity : AppCompatActivity(){
 
@@ -51,20 +43,20 @@ class HomeActivity : AppCompatActivity(){
         keyArray.add(jsonPath)
         jsonKey.add("key", keyArray)
 
-        val dataFood = MutableLiveData<DataFood>()
-        ApiConfig.getApiService("https://datastore.googleapis.com/v1/projects/")
-            .getFood(jsonKey).enqueue(object : Callback<DataFood>{
-                override fun onResponse(call: Call<DataFood>, response: Response<DataFood>) {
-                    if (response.isSuccessful) {
-                        Log.d( TAG, response.body().toString())
-                        dataFood.postValue(response.body())
-                    }
-
-                }
-
-                override fun onFailure(call: Call<DataFood>, t: Throwable) {
-                }
-
-            })
+//        val dataFood = MutableLiveData<DataFood>()
+//        ApiConfig.getApiService("https://datastore.googleapis.com/v1/projects/")
+//            .getFood(jsonKey).enqueue(object : Callback<DataFood>{
+//                override fun onResponse(call: Call<DataFood>, response: Response<DataFood>) {
+//                    if (response.isSuccessful) {
+//                        Log.d( TAG, response.body().toString())
+//                        dataFood.postValue(response.body())
+//                    }
+//
+//                }
+//
+//                override fun onFailure(call: Call<DataFood>, t: Throwable) {
+//                }
+//
+//            })
     }
 }

@@ -30,3 +30,7 @@ fun spannable(view: TextView, text: String, spanStart: Int, spanEnd: Int, contex
     view.text = ss
     view.movementMethod = LinkMovementMethod.getInstance()
 }
+
+fun checking(){
+
+}
