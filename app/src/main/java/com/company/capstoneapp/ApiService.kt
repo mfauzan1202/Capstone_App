@@ -16,9 +16,12 @@ interface ApiService {
         @Field("code") code: String?
     ): Call<DataAccesInfo>
 
-    @Headers("Content-Type: application/json")
-    @POST("capstone-project-351416:lookup")
-    fun getFood(
-        @Body jsonKey: JsonObject
-    ):Call<DataFood>
+    @FormUrlEncoded
+    @POST("./accounts:signInWithPassword")//karna ada semicolon(:) jadi pake (./)
+    fun login(
+        @Query("key") query: String,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("returnSecureToken") bool: Boolean = true,
+    ): Call<DataUser>
 }

@@ -7,10 +7,8 @@
         android:icon="@drawable/ic_icon_home" />
 
     <item
-        android:id="@+id/camera"
-        android:title="Home"
-        android:icon="@drawable/ic_icon_home"
-        android:iconTint="@null"/>
+        android:id="@+id/placeholder"
+        android:title="" />
 
     <item
         android:id="@+id/Profile"
