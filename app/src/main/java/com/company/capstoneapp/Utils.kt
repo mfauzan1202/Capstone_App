@@ -1,6 +1,7 @@
 package com.company.capstoneapp
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.text.SpannableString
@@ -8,8 +9,14 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 fun spannable(view: TextView, text: String, spanStart: Int, spanEnd: Int, context: Context, intent: Intent){

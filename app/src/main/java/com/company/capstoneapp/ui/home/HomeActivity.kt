@@ -10,6 +10,7 @@ import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityHomeBinding
 import com.company.capstoneapp.ui.adapter.ListCulinaryAroundAdapter
 import com.company.capstoneapp.ui.adapter.ListCulinaryRecommendationAdapter
+import com.company.capstoneapp.ui.profile.ProfileActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -34,7 +35,8 @@ class HomeActivity : AppCompatActivity() {
                 .into(ivAvatar)
 
             btnMaps.setOnClickListener {
-                startActivity(Intent(this@HomeActivity, HomeMapActivity::class.java))
+                //TODO: ini button maps jangan lupa diganti intentnya ke map lagi
+                startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
             }
         }
 

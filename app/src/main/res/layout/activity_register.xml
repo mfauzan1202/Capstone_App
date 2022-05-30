@@ -107,11 +107,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_verifiypassword"
+        android:id="@+id/ti_verify_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="25dp"
         android:hint="@string/verify_password"
         app:boxStrokeWidth="0dp"
@@ -122,7 +122,7 @@
         app:passwordToggleEnabled="true">
 
         <com.company.capstoneapp.view.CustomPassEditText
-            android:id="@+id/et_verifypassword"
+            android:id="@+id/et_verify_password"
             style="@style/style_input_text"
             android:background="@drawable/custom_edit_text" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -130,12 +130,11 @@
     <Button
         android:id="@+id/btn_signup"
         style="@style/style_btn_primary"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:text="@string/daftar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_verifiypassword" />
+        app:layout_constraintTop_toBottomOf="@+id/ti_verify_password" />
 
     <TextView
         android:id="@+id/tv_signin"

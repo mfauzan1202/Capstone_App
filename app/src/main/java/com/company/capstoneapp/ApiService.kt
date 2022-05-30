@@ -45,4 +45,12 @@ interface ApiService {
         @Field("returnSecureToken") bool: Boolean = true,
     ): Call<DataUser>
 
+    @FormUrlEncoded
+    @POST("./accounts:update")//karna ada semicolon(:) jadi pake (./)
+    fun changePass(
+        @Query("key") query: String,
+        @Field("idToken") idToken: String?,
+        @Field("password") password: String,
+        @Field("returnSecureToken") bool: Boolean = true,
+    ): Call<DataUser>
 }
