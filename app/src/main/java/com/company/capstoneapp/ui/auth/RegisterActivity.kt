@@ -2,16 +2,15 @@ package com.company.capstoneapp.ui.auth
 
 import android.content.ContentValues
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.company.capstoneapp.ApiConfig
 import com.company.capstoneapp.DataUser
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityRegisterBinding
 import com.company.capstoneapp.spannable
-import com.company.capstoneapp.ui.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,14 +38,14 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.apply {
             btnSignup.setOnClickListener {
-                if (etPassword.error != null || etEmail.error != null || etUsername.error != null || etVerifypassword.error != null) {
+                if (etPassword.error != null || etEmail.error != null || etUsername.error != null || etVerifyPassword.error != null) {
                     Toast.makeText(
                         this@RegisterActivity,
                         "Please fill the field with the right data",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@setOnClickListener
-                } else if (etPassword.text.toString() != etVerifypassword.text.toString()) {
+                } else if (etPassword.text.toString() != etVerifyPassword.text.toString()) {
                     Toast.makeText(
                         this@RegisterActivity,
                         "Your Password doesn't match",

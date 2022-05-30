@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.ProfileActivity">
+    tools:context=".ui.profile.ProfileActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -23,93 +23,161 @@
             android:layout_marginVertical="12dp"
             android:layout_marginLeft="16dp"
             android:text="Profil"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
+        android:id="@+id/iv_avatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="30dp"
+        app:civ_border_color="@color/cream"
+        app:civ_border_width="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:src="@drawable/avatar_dummy" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_username"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/heading_login"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar"
+        tools:text="Yuda Pratama" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username"
+        tools:text="yudapratama858@gmail.com" />
+
+    <TextView
+        android:id="@+id/tv_changeName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="25dp"
-        android:hint="@string/nama"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
+        android:background="@drawable/border_bottom_profile_screen"
+        android:text="@string/change_profile"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward_ios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView">
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
-        <com.company.capstoneapp.view.CustomNameEditText
-            android:id="@+id/et_username"
-            style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_password"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_changePassword"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
-        android:hint="@string/password"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
+        android:background="@drawable/border_bottom_profile_screen"
+        android:text="@string/change_password"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward_ios"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_username"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/tv_changeName" />
 
-        <com.company.capstoneapp.view.CustomPassEditText
-            android:id="@+id/et_password"
-            style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_verifiypassword"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_help"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
-        android:hint="@string/verify_password"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
+        android:background="@drawable/border_bottom_profile_screen"
+        android:text="@string/help"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward_ios"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_password"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/tv_changePassword" />
 
-        <com.company.capstoneapp.view.CustomPassEditText
-            android:id="@+id/et_verifypassword"
-            style="@style/style_input_text"
-            android:background="@drawable/custom_edit_text" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/border_bottom_profile_screen"
+        android:text="@string/about_us"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward_ios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_help" />
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_signout"
         style="@style/style_btn_primary"
-        android:layout_marginTop="25dp"
-        android:text="@string/simpan"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:text="Keluar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_about" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@color/cream"
+        app:itemIconSize="40dp"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_verifiypassword" />
+        app:menu="@menu/bottom_nav_menu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_icon_camera"
+        app:backgroundTint="@color/cream"
+        app:borderWidth="10dp"
+        app:elevation="8dp"
+        app:fabCustomSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="50dp"
+        app:tint="@null" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
