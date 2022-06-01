@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/Home"
-        android:title="Home"
-        android:icon="@drawable/ic_icon_home" />
+        android:title="@string/home"
+        android:icon="@drawable/ic_icon_home"/>
 
     <item
         android:id="@+id/placeholder"
@@ -12,6 +12,6 @@
 
     <item
         android:id="@+id/Profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_icon_profile"/>
+        android:title="@string/profile"
+        android:icon="@drawable/ic_profile_inactive"/>
 </menu>

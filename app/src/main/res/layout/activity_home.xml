@@ -29,6 +29,8 @@
         android:textAppearance="@style/heading"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/ivAvatar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,11 +119,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:background="@color/cream"
-        app:itemIconSize="40dp"
+        app:itemIconSize="25dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +135,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_icon_camera"
+        android:src="@drawable/ic_scan"
         app:backgroundTint="@color/cream"
         app:elevation="8dp"
         app:fabCustomSize="100dp"
