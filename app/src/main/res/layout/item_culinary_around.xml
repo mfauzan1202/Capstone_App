@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:src="@drawable/food_dummy_2"
+            android:scaleType="fitXY"
             android:contentDescription="@string/image"/>
 
         <TextView
@@ -80,7 +81,7 @@
             android:layout_below="@id/item_name"
             android:layout_toEndOf="@id/ic_star_4"
             android:contentDescription="@string/star"
-            android:src="@drawable/ic_star_gray" />
+            android:src="@drawable/ic_star_yellow" />
 
         <TextView
             android:id="@+id/item_rate"

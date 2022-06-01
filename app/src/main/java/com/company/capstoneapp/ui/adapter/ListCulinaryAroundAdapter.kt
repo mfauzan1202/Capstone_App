@@ -1,50 +1,90 @@
 package com.company.capstoneapp.ui.adapter
 
-import android.content.Intent
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
+import com.company.capstoneapp.databinding.ItemCulinaryAroundBinding
+import com.company.capstoneapp.dataclass.Culinary
 import com.company.capstoneapp.ui.DetailActivity
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import kotlin.math.floor
 
-class ListCulinaryAroundAdapter : RecyclerView.Adapter<ListCulinaryAroundAdapter.ListViewHolder>() {
+class ListCulinaryAroundAdapter(options: FirebaseRecyclerOptions<Culinary>) : FirebaseRecyclerAdapter<Culinary, ListCulinaryAroundAdapter.ListViewHolder>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_culinary_around, parent, false)
-        return ListViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.item_culinary_around, parent, false)
+        val binding = ItemCulinaryAroundBinding.bind(view)
+        return ListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.apply {
-            itemImage.setImageResource(R.drawable.food_dummy_2)
-            itemName.text = "Nasi Kuning"
-            itemRate.text = "4.2"
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int, model: Culinary) {
+        holder.bind(model, position)
+    }
+
+    inner class ListViewHolder(private val binding: ItemCulinaryAroundBinding) : RecyclerView.ViewHolder(binding.root) {
+        val context: Context = itemView.context
+
+        fun bind(item: Culinary, position: Int) {
+            binding.itemName.text = item.name
+            binding.itemRate.text = item.rate.toString()
+
+            Glide.with(itemView.context)
+                .load(item.link)
+                .into(binding.itemImage)
+
+            // TODO: masih ada bug di icon bintang
+            val yellowStar = floor(item.rate!!)
+            binding.icStar1.apply {
+                if (yellowStar < 1) {
+                    setImageResource(R.drawable.ic_star_gray)
+                }
+            }
+
+            binding.icStar2.apply {
+                if (yellowStar < 2) {
+                    setImageResource(R.drawable.ic_star_gray)
+                }
+            }
+
+            binding.icStar3.apply {
+                if (yellowStar < 3) {
+                    setImageResource(R.drawable.ic_star_gray)
+                }
+            }
+
+            binding.icStar4.apply {
+                if (yellowStar < 4) {
+                    setImageResource(R.drawable.ic_star_gray)
+                }
+            }
+
+            binding.icStar5.apply {
+                if (yellowStar < 5) {
+                    setImageResource(R.drawable.ic_star_gray)
+                }
+            }
 
             itemView.setOnClickListener {
                 val detailPage = Intent(context, DetailActivity::class.java)
+                detailPage.putExtra(DetailActivity.EXTRA_ID, item.id)
                 context.startActivity(detailPage)
             }
-        }
 
-        if (position == 9) { // beri margin right untuk item yang terakhir
-            val params = holder.itemCard.layoutParams as RecyclerView.LayoutParams
-            params.rightMargin = 40
-            holder.itemCard.layoutParams = params
+            if (position == (itemCount - 1)) { // jika item terakhir, beri margin right
+                val params = binding.cardView.layoutParams as RecyclerView.LayoutParams
+                params.rightMargin = 50
+                binding.cardView.layoutParams = params
+                Log.e("MARGIN", "OKEEE POSITION ${item.name} ${itemCount}")
+            }
+
         }
     }
 
-    override fun getItemCount(): Int = 10
-
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val context: Context = itemView.context
-        var itemCard: CardView = itemView.findViewById((R.id.card_view))
-        var itemImage: ImageView = itemView.findViewById(R.id.item_image)
-        var itemName: TextView = itemView.findViewById(R.id.item_name)
-        var itemRate: TextView = itemView.findViewById(R.id.item_rate)
-    }
 }

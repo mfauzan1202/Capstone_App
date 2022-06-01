@@ -34,4 +34,6 @@
     <string name="old_password">Password Lama</string>
     <string name="verify_newpassword">Konfirmasi Password Baru</string>
     <string name="new_password">Password Baru</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
 </resources>
