@@ -1,9 +1,14 @@
 package com.company.capstoneapp.ui.home
 
+import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
@@ -11,11 +16,14 @@ import com.company.capstoneapp.databinding.ActivityHomeBinding
 import com.company.capstoneapp.dataclass.Culinary
 import com.company.capstoneapp.ui.adapter.ListCulinaryAroundAdapter
 import com.company.capstoneapp.ui.adapter.ListCulinaryRecommendationAdapter
+import com.company.capstoneapp.ui.camera.CameraActivity
+import com.company.capstoneapp.ui.camera.ResultCameraActivity
 import com.company.capstoneapp.ui.profile.ProfileActivity
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,10 +32,45 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var culinaryAroundAdapter: ListCulinaryAroundAdapter
 
+    companion object {
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val REQUEST_CODE_PERMISSIONS = 10
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (!allPermissionsGranted()) {
+                Toast.makeText(
+                    this,
+                    "Tidak mendapatkan permission.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+        }
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (!allPermissionsGranted()) {
+            ActivityCompat.requestPermissions(
+                this,
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
+        }
 
         database = Firebase.database.reference
 
@@ -44,36 +87,49 @@ class HomeActivity : AppCompatActivity() {
                 )
 
             Glide.with(this@HomeActivity)
-                .load(userInfo.getString("urlPhoto", "https://cdn-asset.jawapos.com/wp-content/uploads/2021/03/37_jokowi_cabut_aturan-560x432.jpg"))
+                .load(
+                    userInfo.getString(
+                        "urlPhoto",
+                        "https://cdn-asset.jawapos.com/wp-content/uploads/2021/03/37_jokowi_cabut_aturan-560x432.jpg"
+                    )
+                )
                 .into(ivAvatar)
 
             btnMaps.setOnClickListener {
-                // TODO: ganti ke MapsActivity
-                startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+                startActivity(Intent(this@HomeActivity, HomeMapActivity::class.java))
             }
 
+            floatingActionButton.setOnClickListener {
+                startActivity(Intent(this@HomeActivity, ResultCameraActivity::class.java))
+            }
+
+            // recyclerview makanan disekitar
+            val managerCulinaryAroundAdapter =
+                LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+            managerCulinaryAroundAdapter.stackFromEnd = false
+            rvCulinaryAround.layoutManager = managerCulinaryAroundAdapter
+            rvCulinaryAround.itemAnimator = null
+
+            val options = FirebaseRecyclerOptions.Builder<Culinary>()
+                .setQuery(database.child("makanan"), Culinary::class.java)
+                .build()
+
+            culinaryAroundAdapter = ListCulinaryAroundAdapter(options)
+            rvCulinaryAround.adapter = culinaryAroundAdapter
+
+            // recyclerview makanan rekomendasi
+            rvRecommendation.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(this@HomeActivity)
+                adapter = ListCulinaryRecommendationAdapter()
+            }
+
+            navbar.selectedItemId = R.id.home_menu
+            navbar.menu.findItem(R.id.profile_menu).setOnMenuItemClickListener {
+                startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
+                return@setOnMenuItemClickListener false
+            }
         }
-
-        // recyclerview makanan disekitar
-        val managerCulinaryAroundAdapter = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        managerCulinaryAroundAdapter.stackFromEnd = false
-        binding.rvCulinaryAround.layoutManager = managerCulinaryAroundAdapter
-        binding.rvCulinaryAround.itemAnimator = null
-
-        val options = FirebaseRecyclerOptions.Builder<Culinary>()
-            .setQuery(database.child("makanan"), Culinary::class.java)
-            .build()
-
-        culinaryAroundAdapter = ListCulinaryAroundAdapter(options)
-        binding.rvCulinaryAround.adapter = culinaryAroundAdapter
-
-        // recyclerview makanan rekomendasi
-        binding.rvRecommendation.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@HomeActivity)
-            adapter = ListCulinaryRecommendationAdapter()
-        }
-
     }
 
     public override fun onResume() {

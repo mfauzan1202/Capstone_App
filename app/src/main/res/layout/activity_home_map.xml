@@ -7,6 +7,17 @@
     android:background="@color/cream"
     tools:context=".ui.home.HomeActivity">
 
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_maps"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_ios" />
+
     <TextView
         android:id="@+id/tv_maps"
         android:layout_width="wrap_content"
@@ -17,7 +28,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/iv_back"
         app:layout_constraintTop_toTopOf="parent" />
 
     <fragment
@@ -34,11 +45,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:background="@color/cream"
-        app:itemIconSize="40dp"
+        app:itemIconSize="25dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +61,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_icon_camera"
+        android:src="@drawable/ic_scan"
         app:backgroundTint="@color/cream"
         app:elevation="8dp"
         app:fabCustomSize="100dp"
@@ -60,16 +71,5 @@
         app:maxImageSize="50dp"
         app:tint="@null"
         app:borderWidth="10dp"/>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_maps"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back_ios" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

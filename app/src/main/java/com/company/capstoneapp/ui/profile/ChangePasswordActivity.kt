@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.company.capstoneapp.ApiConfig
 import com.company.capstoneapp.DataUser
 import com.company.capstoneapp.R
@@ -26,6 +27,11 @@ class ChangePasswordActivity : AppCompatActivity() {
         userData = getSharedPreferences("login_session", MODE_PRIVATE)
 
         binding.apply {
+
+            Glide.with(this@ChangePasswordActivity)
+                .load(userData.getString("urlPhoto", null))
+                .into(ivAvatar)
+
             btnSave.setOnClickListener {
                 val oldPass = etOldpassword.text.toString().trim()
                 val newPass = etNewpassword.text.toString().trim()
@@ -55,10 +61,11 @@ class ChangePasswordActivity : AppCompatActivity() {
                     return@setOnClickListener
                 } else {
                     ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/")
-                        .changePass(
+                        .changeProfile(
                             getString(R.string.API_KEY),
                             userData.getString("idToken", null),
-                            newPass
+                            password = newPass,
+                            displayName = null
                             ).enqueue(object : Callback<DataUser> {
                             override fun onResponse(
                                 call: Call<DataUser>,

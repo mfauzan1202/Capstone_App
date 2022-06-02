@@ -19,33 +19,32 @@
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_arrow_back_ios.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_arrow_forward_ios.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.1165" />
+        <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_capture.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_flag.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_help.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_icon_camera.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_icon_home.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_logo.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_scan.xml" value="0.1165" />
+        <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/ic_switch_camera.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/show_password_icon.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/signup_text.xml" value="0.1165" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/drawable/your_selector.xml" value="0.1165" />
+        <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_camera.xml" value="0.16032608695652173" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_change_name.xml" value="0.2" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_change_password.xml" value="0.22" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_detail.xml" value="0.22" />
-        <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_home_map.xml" value="0.22" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_login2.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_profile.xml" value="0.25" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_result_camera.xml" value="0.16032608695652173" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/layout/activity_splash.xml" value="0.17" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/menu/bottom_nav.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Us/AndroidStudioProjects/CapstoneApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
-        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/drawable/ic_icon_home.xml" value="0.167" />
-        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_detail.xml" value="0.36" />
-        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/activity_home.xml" value="0.268" />
-        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/layout/item_culinary_around.xml" value="0.36" />
-        <entry key="..\:/belajar/belajar_kotlin/capstone_bangkit/app/src/main/res/menu/bottom_nav_menu.xml" value="0.275" />
       </map>
     </option>
   </component>

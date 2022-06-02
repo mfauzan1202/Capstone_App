@@ -93,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
                             .putString("name", dataUser.displayName)
                             .putString("password", password)
                             .putString("idToken", dataUser.idToken)
+                            .putString("urlPhoto", dataUser.profilePicture)
                             .apply()
                         Toast.makeText(
                             this@LoginActivity,
