@@ -73,10 +73,11 @@ class RegisterActivity : AppCompatActivity() {
                 response: Response<DataUser>
             ) {
                 if (response.isSuccessful) {
-                    ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/").changeName(
+                    ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/").changeProfile(
                         getString(R.string.API_KEY),
                         response.body()?.idToken,
-                        name
+                        displayName = name,
+                        password = null
                     ).enqueue(object : Callback<DataUser>{
                         override fun onResponse(
                             call: Call<DataUser>,

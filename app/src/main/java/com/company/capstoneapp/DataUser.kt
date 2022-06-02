@@ -20,5 +20,11 @@ data class DataUser(
 	val email: String,
 
 	@field:SerializedName("refreshToken")
-	val refreshToken: String
+	val refreshToken: String,
+
+	@field:SerializedName("photoUrl")
+	val photoUrl: String,
+
+	@field:SerializedName("profilePicture")
+	val profilePicture: String
 )
