@@ -47,6 +47,7 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             navbar.selectedItemId = R.id.profile_menu
+            navbar.menu.findItem(R.id.profile_menu).setIcon(R.drawable.ic_profile_active)
             navbar.menu.findItem(R.id.home_menu).setOnMenuItemClickListener {
                 finishAffinity()
                 startActivity(Intent(this@ProfileActivity, HomeActivity::class.java))

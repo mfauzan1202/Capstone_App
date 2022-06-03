@@ -16,7 +16,6 @@ import com.company.capstoneapp.databinding.ActivityHomeBinding
 import com.company.capstoneapp.dataclass.Culinary
 import com.company.capstoneapp.ui.adapter.ListCulinaryAroundAdapter
 import com.company.capstoneapp.ui.adapter.ListCulinaryRecommendationAdapter
-import com.company.capstoneapp.ui.camera.CameraActivity
 import com.company.capstoneapp.ui.camera.ResultCameraActivity
 import com.company.capstoneapp.ui.profile.ProfileActivity
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -24,13 +23,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var userInfo: SharedPreferences
     private lateinit var database: DatabaseReference
     private lateinit var culinaryAroundAdapter: ListCulinaryAroundAdapter
+    private lateinit var culinaryRecommendationAdapter: ListCulinaryRecommendationAdapter
 
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
@@ -104,41 +103,51 @@ class HomeActivity : AppCompatActivity() {
             }
 
             // recyclerview makanan disekitar
-            val managerCulinaryAroundAdapter =
-                LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+            val managerCulinaryAroundAdapter = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
             managerCulinaryAroundAdapter.stackFromEnd = false
             rvCulinaryAround.layoutManager = managerCulinaryAroundAdapter
             rvCulinaryAround.itemAnimator = null
 
-            val options = FirebaseRecyclerOptions.Builder<Culinary>()
-                .setQuery(database.child("makanan"), Culinary::class.java)
+            val optionsCulinaryAroundAdapter = FirebaseRecyclerOptions.Builder<Culinary>()
+                .setQuery(database.child("makanan").limitToFirst(6), Culinary::class.java)
                 .build()
 
-            culinaryAroundAdapter = ListCulinaryAroundAdapter(options)
+            culinaryAroundAdapter = ListCulinaryAroundAdapter(optionsCulinaryAroundAdapter)
             rvCulinaryAround.adapter = culinaryAroundAdapter
 
             // recyclerview makanan rekomendasi
-            rvRecommendation.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(this@HomeActivity)
-                adapter = ListCulinaryRecommendationAdapter()
-            }
+            val managerCulinaryRecommendationAdapter = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.VERTICAL, false)
+            managerCulinaryRecommendationAdapter.stackFromEnd = false
+            rvRecommendation.layoutManager = managerCulinaryRecommendationAdapter
+            rvRecommendation.itemAnimator = null
+
+            val optionsCulinaryRecommendationAdapter = FirebaseRecyclerOptions.Builder<Culinary>()
+                .setQuery(database.child("makanan").orderByChild("rate").startAt(4.0), Culinary::class.java)
+                .build()
+
+            culinaryRecommendationAdapter = ListCulinaryRecommendationAdapter(optionsCulinaryRecommendationAdapter)
+            rvRecommendation.adapter = culinaryRecommendationAdapter
 
             navbar.selectedItemId = R.id.home_menu
+            navbar.menu.findItem(R.id.home_menu).setIcon(R.drawable.ic_home_active)
             navbar.menu.findItem(R.id.profile_menu).setOnMenuItemClickListener {
                 startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
                 return@setOnMenuItemClickListener false
             }
         }
+
+
     }
 
     public override fun onResume() {
         super.onResume()
         culinaryAroundAdapter.startListening()
+        culinaryRecommendationAdapter.startListening()
     }
 
     public override fun onPause() {
-        culinaryAroundAdapter.stopListening()
         super.onPause()
+        culinaryAroundAdapter.stopListening()
+        culinaryRecommendationAdapter.stopListening()
     }
 }

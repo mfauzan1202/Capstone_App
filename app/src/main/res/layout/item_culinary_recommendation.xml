@@ -72,7 +72,7 @@
         android:layout_below="@id/item_name"
         android:layout_toEndOf="@id/ic_star_4"
         android:contentDescription="@string/star"
-        android:src="@drawable/ic_star_gray" />
+        android:src="@drawable/ic_star_yellow" />
 
     <TextView
         android:id="@+id/item_rate"
@@ -81,7 +81,6 @@
         android:layout_below="@id/item_name"
         android:layout_toEndOf="@id/ic_star_5"
         android:layout_marginStart="5dp"
-        android:text="4.5"
         android:textSize="12sp" />
 
 </RelativeLayout>

@@ -124,6 +124,7 @@
         android:layout_gravity="bottom"
         android:background="@color/cream"
         app:itemIconSize="25dp"
+        app:itemIconTint="@color/white"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
