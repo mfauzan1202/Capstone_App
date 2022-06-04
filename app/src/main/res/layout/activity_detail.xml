@@ -18,10 +18,10 @@
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
         android:gravity="start"
-        app:drawableStartCompat="@drawable/ic_arrow_back" />
+        app:drawableStartCompat="@drawable/ic_arrow_back_ios_yellow_24" />
 
     <LinearLayout
         android:id="@+id/detail_body"
