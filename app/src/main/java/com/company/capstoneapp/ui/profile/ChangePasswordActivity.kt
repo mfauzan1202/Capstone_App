@@ -10,6 +10,7 @@ import com.company.capstoneapp.ApiConfig
 import com.company.capstoneapp.DataUser
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityChangePasswordBinding
+import com.company.capstoneapp.showLoading
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +34,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 .into(ivAvatar)
 
             btnSave.setOnClickListener {
+                showLoading(true, this@ChangePasswordActivity)
                 val oldPass = etOldpassword.text.toString().trim()
                 val newPass = etNewpassword.text.toString().trim()
                 val verifyNewPass = etVerifyNewpassword.text.toString().trim()
@@ -60,40 +62,53 @@ class ChangePasswordActivity : AppCompatActivity() {
                     etVerifyNewpassword.requestFocus()
                     return@setOnClickListener
                 } else {
-                    ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/")
-                        .changeProfile(
-                            getString(R.string.API_KEY),
-                            userData.getString("idToken", null),
-                            password = newPass,
-                            displayName = null
-                            ).enqueue(object : Callback<DataUser> {
-                            override fun onResponse(
-                                call: Call<DataUser>,
-                                response: Response<DataUser>
-                            ) {
-                                getSharedPreferences("login_session", MODE_PRIVATE)
-                                    .edit()
-                                    .putString("password", newPass)
-                                    .apply()
-                                Toast.makeText(
-                                    this@ChangePasswordActivity,
-                                    "Ubah Pass Berhasil",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                finishAffinity()
-                                startActivity(
-                                    Intent(
-                                        this@ChangePasswordActivity, ProfileActivity::class.java
-                                    )
-                                )
-                            }
-
-                            override fun onFailure(call: Call<DataUser>, t: Throwable) {
-                            }
-
-                        })
+                    handleChangePassword(newPass)
                 }
             }
         }
+    }
+
+    private fun handleChangePassword(newPass: String){
+        ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/")
+            .changeProfile(
+                getString(R.string.API_KEY),
+                userData.getString("idToken", null),
+                password = newPass,
+            ).enqueue(object : Callback<DataUser> {
+                override fun onResponse(
+                    call: Call<DataUser>,
+                    response: Response<DataUser>
+                ) {
+                    if (response.isSuccessful) {
+                        showLoading(false, this@ChangePasswordActivity)
+                        getSharedPreferences("login_session", MODE_PRIVATE)
+                            .edit()
+                            .putString("password", newPass)
+                            .apply()
+                        Toast.makeText(
+                            this@ChangePasswordActivity,
+                            "Ubah Pass Berhasil",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        finishAffinity()
+                        startActivity(
+                            Intent(
+                                this@ChangePasswordActivity, ProfileActivity::class.java
+                            )
+                        )
+                    }else{
+                        showLoading(false, this@ChangePasswordActivity)
+                        Toast.makeText(
+                            this@ChangePasswordActivity,
+                            "Email atau password yang anda masukkan salah",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<DataUser>, t: Throwable) {
+                }
+
+            })
     }
 }

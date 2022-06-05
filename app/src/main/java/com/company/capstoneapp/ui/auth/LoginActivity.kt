@@ -7,11 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.company.capstoneapp.ApiConfig
-import com.company.capstoneapp.DataUser
-import com.company.capstoneapp.R
+import com.company.capstoneapp.*
 import com.company.capstoneapp.databinding.ActivityLoginBinding
-import com.company.capstoneapp.spannable
 import com.company.capstoneapp.ui.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                     return@setOnClickListener
                 } else {
+                    showLoading(true, this@LoginActivity)
                     handleSignInResult(
                         etEmail.text.toString().trim(),
                         etPassword.text.toString().trim()
@@ -95,11 +93,7 @@ class LoginActivity : AppCompatActivity() {
                             .putString("idToken", dataUser.idToken)
                             .putString("urlPhoto", dataUser.profilePicture)
                             .apply()
-                        Toast.makeText(
-                            this@LoginActivity,
-                            response.body()?.email,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showLoading(false, this@LoginActivity)
                         finishAffinity()
                         startActivity(
                             Intent(
@@ -107,7 +101,19 @@ class LoginActivity : AppCompatActivity() {
                                 HomeActivity::class.java
                             )
                         )
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Hello " + dataUser.displayName,
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
+                }else{
+                    showLoading(false, this@LoginActivity)
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Email atau password yang anda masukkan salah",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
