@@ -12,8 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/avatar_dummy"
-        tools:src="@drawable/avatar_dummy"
+        android:src="@drawable/profile_pic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

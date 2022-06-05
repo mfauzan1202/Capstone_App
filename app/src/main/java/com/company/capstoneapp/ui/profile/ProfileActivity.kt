@@ -32,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
                 .into(ivAvatar)
 
             tvChangeName.setOnClickListener{
-                startActivity(Intent(this@ProfileActivity, ChangeNameActivity::class.java))
+                startActivity(Intent(this@ProfileActivity, ChangeProfileActivity::class.java))
             }
 
             tvChangePassword.setOnClickListener{

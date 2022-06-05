@@ -6,11 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.company.capstoneapp.ApiConfig
-import com.company.capstoneapp.DataUser
-import com.company.capstoneapp.R
+import com.company.capstoneapp.*
 import com.company.capstoneapp.databinding.ActivityRegisterBinding
-import com.company.capstoneapp.spannable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,6 +50,7 @@ class RegisterActivity : AppCompatActivity() {
                     ).show()
                     return@setOnClickListener
                 } else {
+                    showLoading(true, this@RegisterActivity)
                     val email = etEmail.text.toString().trim()
                     val password = etPassword.text.toString().trim()
                     val name = etUsername.text.toString()
@@ -73,26 +71,39 @@ class RegisterActivity : AppCompatActivity() {
                 response: Response<DataUser>
             ) {
                 if (response.isSuccessful) {
+                    val responseBody = response.body()
+
+                    if (responseBody != null) {
+                        val dataUser: DataUser = responseBody
+                        getSharedPreferences("login_session", MODE_PRIVATE)
+                            .edit()
+                            .putString("localId", dataUser.localId)
+                            .putString("email", dataUser.email)
+                            .putString("password", password)
+                            .putString("idToken", dataUser.idToken)
+                            .apply()
+                    }
                     ApiConfig.getApiService("https://identitytoolkit.googleapis.com/v1/").changeProfile(
                         getString(R.string.API_KEY),
                         response.body()?.idToken,
                         displayName = name,
-                        password = null
                     ).enqueue(object : Callback<DataUser>{
                         override fun onResponse(
                             call: Call<DataUser>,
                             response: Response<DataUser>
                         ) {
+                            getSharedPreferences("login_session", MODE_PRIVATE)
+                                .edit()
+                                .putString("name", name)
+                                .apply()
+                            showLoading(false, this@RegisterActivity)
                             Toast.makeText(
                                 this@RegisterActivity,
                                 "Berhasil daftar dengan email: " + response.body()?.email,
                                 Toast.LENGTH_LONG
                             ).show()
                             finishAffinity()
-                            startActivity(
-                                Intent(
-                                    this@RegisterActivity, LoginActivity::class.java
-                                )
+                            startActivity(Intent(this@RegisterActivity, RegisterAddPhotoActivity::class.java)
                             )
                         }
 
@@ -101,6 +112,13 @@ class RegisterActivity : AppCompatActivity() {
 
                     })
 
+                }else{
+                    showLoading(false, this@RegisterActivity)
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Email yang anda masukkan telah terdaftar",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 

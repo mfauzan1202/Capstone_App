@@ -17,6 +17,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -127,4 +128,14 @@ fun reduceFileImage(bitmap: Bitmap, file: File): File {
     } while (streamLength > 1000000)
     bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
     return file
+}
+
+fun showLoading(isLoading: Boolean, context: Context) {
+    if (isLoading) {
+        val loading = (context as Activity).findViewById<ProgressBar>(R.id.progressBar)
+        loading.visibility = View.VISIBLE
+    } else {
+        val loading = (context as Activity).findViewById<ProgressBar>(R.id.progressBar)
+        loading.visibility = View.GONE
+    }
 }

@@ -1,21 +1,16 @@
 package com.company.capstoneapp.ui.camera
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.company.capstoneapp.databinding.ActivityResultCameraBinding
-import com.company.capstoneapp.reduceFileImage
 import com.company.capstoneapp.rotateBitmap
-import com.company.capstoneapp.ui.home.HomeActivity
 import java.io.File
 
 
 class ResultCameraActivity : AppCompatActivity() {
-    private var captureStatus = false
     companion object{
         const val CAMERA_X_RESULT = 200
     }
@@ -28,8 +23,7 @@ class ResultCameraActivity : AppCompatActivity() {
             launcherIntentCameraX.launch(intent)
 
         binding.ivBack.setOnClickListener{
-            val intent = Intent(this@ResultCameraActivity, CameraActivity::class.java)
-            launcherIntentCameraX.launch(intent)
+            launcherIntentCameraX.launch(Intent(this@ResultCameraActivity, CameraActivity::class.java))
         }
     }
 
@@ -47,4 +41,6 @@ class ResultCameraActivity : AppCompatActivity() {
             binding.ivPreviewImage.setImageBitmap(result)
         }
     }
+
+
 }

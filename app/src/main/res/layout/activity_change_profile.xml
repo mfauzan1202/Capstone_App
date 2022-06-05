@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ChangeNameActivity">
+    tools:context=".ui.profile.ChangeProfileActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -43,9 +43,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:src="@drawable/avatar_dummy"
+        android:src="@drawable/profile_pic"
         app:civ_border_color="@color/cream"
         app:civ_border_width="4dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_editFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabCustomSize="35dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
+        app:layout_constraintEnd_toEndOf="@+id/iv_avatar"
+        app:maxImageSize="25dp"
+        android:backgroundTint="@color/yellow"
+        app:tint="@null"
+        app:srcCompat="@drawable/ic_edit" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_username"
@@ -99,5 +111,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_password" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

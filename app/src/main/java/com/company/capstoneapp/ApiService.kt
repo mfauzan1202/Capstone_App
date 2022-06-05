@@ -29,8 +29,9 @@ interface ApiService {
     fun changeProfile(
         @Query("key") query: String,
         @Field("idToken") idToken: String?,
-        @Field("displayName") displayName: String?,
-        @Field("password") password: String?,
+        @Field("displayName") displayName: String? = null,
+        @Field("password") password: String? = null,
+        @Field("photoUrl") photoUrl: String? = null,
         @Field("returnSecureToken") bool: Boolean = true,
     ): Call<DataUser>
 

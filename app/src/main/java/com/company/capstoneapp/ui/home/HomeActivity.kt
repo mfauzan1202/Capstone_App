@@ -16,7 +16,6 @@ import com.company.capstoneapp.databinding.ActivityHomeBinding
 import com.company.capstoneapp.dataclass.Culinary
 import com.company.capstoneapp.ui.adapter.ListCulinaryAroundAdapter
 import com.company.capstoneapp.ui.adapter.ListCulinaryRecommendationAdapter
-import com.company.capstoneapp.ui.camera.CameraActivity
 import com.company.capstoneapp.ui.camera.ResultCameraActivity
 import com.company.capstoneapp.ui.profile.ProfileActivity
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -79,7 +78,6 @@ class HomeActivity : AppCompatActivity() {
             val fullname = userInfo.getString("name", "Unknown").toString()
             val firstName = fullname.split(" ")[0]
 
-            navbar.itemIconTintList = null
             tvUsername.text =
                 resources.getString(
                     R.string.name_placeholder,
@@ -90,7 +88,7 @@ class HomeActivity : AppCompatActivity() {
                 .load(
                     userInfo.getString(
                         "urlPhoto",
-                        "https://cdn-asset.jawapos.com/wp-content/uploads/2021/03/37_jokowi_cabut_aturan-560x432.jpg"
+                        null
                     )
                 )
                 .into(ivAvatar)
