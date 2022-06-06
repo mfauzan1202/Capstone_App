@@ -2,7 +2,6 @@ package com.company.capstoneapp.ui.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -77,11 +76,10 @@ class ListCulinaryAroundAdapter(options: FirebaseRecyclerOptions<Culinary>) : Fi
                 context.startActivity(detailPage)
             }
 
-            if (position == (itemCount - 1)) { // jika item terakhir, beri margin right
+            if (position == 0) { // jika item pertama, beri margin left
                 val params = binding.cardView.layoutParams as RecyclerView.LayoutParams
-                params.rightMargin = 50
+                params.marginStart = 45
                 binding.cardView.layoutParams = params
-                Log.e("MARGIN", "OKEEE POSITION ${item.name} ${itemCount}")
             }
 
         }

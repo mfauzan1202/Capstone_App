@@ -7,7 +7,7 @@
     android:layout_gravity="start"
     android:layout_width="200dp"
     android:layout_height="210dp"
-    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp"
     android:layout_marginBottom="5dp"
     card_view:cardCornerRadius="6dp">
 

@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.company.capstoneapp.ApiConfig
 import com.company.capstoneapp.DataUser
 import com.company.capstoneapp.R
-import com.company.capstoneapp.databinding.ActivityChangeNameBinding
+import com.company.capstoneapp.databinding.ActivityChangeProfileBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -34,12 +34,12 @@ class ChangeProfileActivity : AppCompatActivity() {
     private lateinit var mFirebaseDatabase: DatabaseReference
     private lateinit var mFirebaseInstance: FirebaseDatabase
 
-    private lateinit var binding: ActivityChangeNameBinding
+    private lateinit var binding: ActivityChangeProfileBinding
     private lateinit var userData: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChangeNameBinding.inflate(layoutInflater)
+        binding = ActivityChangeProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firebaseStorage = FirebaseStorage.getInstance()
