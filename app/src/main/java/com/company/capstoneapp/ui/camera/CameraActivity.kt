@@ -1,6 +1,7 @@
 package com.company.capstoneapp.ui.camera
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
@@ -13,9 +14,16 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.company.capstoneapp.createFile
+import com.company.capstoneapp.*
 import com.company.capstoneapp.databinding.ActivityCameraBinding
 import com.company.capstoneapp.ui.home.HomeActivity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 
 class CameraActivity : AppCompatActivity() {
@@ -23,6 +31,8 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private lateinit var getFile: File
+    private val startResult = Intent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +54,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+        showLoading(true, this@CameraActivity)
         val imageCapture = imageCapture ?: return
         val photoFile = createFile(application)
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -59,14 +70,22 @@ class CameraActivity : AppCompatActivity() {
                     ).show()
                 }
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val intent = Intent()
-                    intent.putExtra("picture", photoFile)
-                    intent.putExtra(
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Mengambil gambar...",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    startResult.putExtra("picture", photoFile)
+                    startResult.putExtra(
                         "isBackCamera",
                         cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
                     )
-                    setResult(ResultCameraActivity.CAMERA_X_RESULT, intent)
-                    finish()
+
+                    val result = BitmapFactory.decodeFile(photoFile.path)
+
+                    val file = reduceFileImage(result, photoFile)
+                    getFile = file
+                    uploadImage()
                 }
             }
         )
@@ -112,5 +131,62 @@ class CameraActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun uploadImage() {
+
+        Toast.makeText(
+            this@CameraActivity,
+            "Tunggu ya, Kita lagi mendeteksi makanan...",
+            Toast.LENGTH_LONG
+        ).show()
+
+        val file = getFile
+        val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "file",
+            file.name,
+            requestImageFile
+        )
+
+        ApiConfig.getApiService("https://capstone-project-351416.et.r.appspot.com/")
+            .uploadImage(imageMultipart)
+            .enqueue(object : Callback<DetectionResponse> {
+                override fun onResponse(
+                    call: Call<DetectionResponse>,
+                    response: Response<DetectionResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            showLoading(false, this@CameraActivity)
+                            Toast.makeText(
+                                this@CameraActivity,
+                                "Yey, makanan berhasil dideteksi",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            startResult.putExtra("food", responseBody.makanan)
+                            setResult(ResultCameraActivity.CAMERA_X_RESULT, startResult)
+                            finish()
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@CameraActivity,
+                            response.message(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<DetectionResponse>, t: Throwable) {
+                    showLoading(false, this@CameraActivity)
+                    Toast.makeText(
+                        this@CameraActivity,
+                        "Gagal instance Retrofit",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
     }
 }
