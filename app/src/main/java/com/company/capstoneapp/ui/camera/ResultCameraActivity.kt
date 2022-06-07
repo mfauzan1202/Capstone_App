@@ -3,12 +3,17 @@ package com.company.capstoneapp.ui.camera
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.company.capstoneapp.*
 import com.company.capstoneapp.databinding.ActivityResultCameraBinding
 import com.company.capstoneapp.ui.DetailActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -20,29 +25,34 @@ import java.io.File
 
 
 class ResultCameraActivity : AppCompatActivity() {
-    companion object{
-        const val CAMERA_X_RESULT = 200
-    }
+
     private var getFile: File? = null
     private lateinit var binding: ActivityResultCameraBinding
+    private lateinit var food: String
+    private lateinit var database: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
-            val intent = Intent(this@ResultCameraActivity, CameraActivity::class.java)
-            launcherIntentCameraX.launch(intent)
+
+        val intent = Intent(this@ResultCameraActivity, CameraActivity::class.java)
+        launcherIntentCameraX.launch(intent)
+
+        database = Firebase.database.reference.child("makanan")
 
         binding.apply {
+
             ivBack.setOnClickListener{
                 launcherIntentCameraX.launch(Intent(this@ResultCameraActivity, CameraActivity::class.java))
             }
 
             btnScan.setOnClickListener {
-                uploadImage()
+                val detailPage = Intent(this@ResultCameraActivity, DetailActivity::class.java)
+                detailPage.putExtra(DetailActivity.EXTRA_ID, food)
+                startActivity(detailPage)
             }
         }
-
-
     }
 
     private val launcherIntentCameraX = registerForActivityResult(
@@ -51,72 +61,25 @@ class ResultCameraActivity : AppCompatActivity() {
         if (it.resultCode == CAMERA_X_RESULT) {
             val myFile = it.data?.getSerializableExtra("picture") as File
             val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
+            food = it.data?.getStringExtra("food") as String
+
             val result = rotateBitmap(
                 BitmapFactory.decodeFile(myFile.path),
                 isBackCamera
             )
+
             val file = reduceFileImage(result, myFile)
+
             getFile = file
             binding.ivPreviewImage.setImageBitmap(result)
+
+            database.child(food).get().addOnSuccessListener {
+                binding.tvFoodName.text = it.child("name").value.toString()
+            }
         }
     }
 
-    private fun uploadImage() {
-        showLoading(true, this@ResultCameraActivity)
-        if (getFile != null) {
-
-            val file = getFile as File
-            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "file",
-                file.name,
-                requestImageFile
-            )
-
-            ApiConfig.getApiService("http://10.10.200.219:8080/")
-                .uploadImage(imageMultipart)
-                .enqueue(object : Callback<DetectionResponse> {
-                    override fun onResponse(
-                        call: Call<DetectionResponse>,
-                        response: Response<DetectionResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            val responseBody = response.body()
-                            if (responseBody != null) {
-                                showLoading(false, this@ResultCameraActivity)
-                                Toast.makeText(
-                                    this@ResultCameraActivity,
-                                    responseBody.makanan,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                val detailPage = Intent(this@ResultCameraActivity, DetailActivity::class.java)
-                                detailPage.putExtra(DetailActivity.EXTRA_ID, responseBody.makanan)
-                                startActivity(detailPage)
-                            }
-                        } else {
-                            Toast.makeText(
-                                this@ResultCameraActivity,
-                                response.message(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<DetectionResponse>, t: Throwable) {
-                        Toast.makeText(
-                            this@ResultCameraActivity,
-                            "Gagal instance Retrofit",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                })
-        } else {
-            Toast.makeText(
-                this,
-                "Silakan masukkan berkas gambar terlebih dahulu.",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+    companion object{
+        const val CAMERA_X_RESULT = 200
     }
 }
