@@ -1,7 +1,10 @@
 package com.company.capstoneapp
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.io.File
 
 
 interface ApiService {
@@ -35,5 +38,17 @@ interface ApiService {
         @Field("returnSecureToken") bool: Boolean = true,
     ): Call<DataUser>
 
+    @FormUrlEncoded
+    @POST("token")
+    fun refreshIdToken(
+        @Query("key") query: String,
+        @Field("refresh_token") displayName: String,
+        @Field("grant_type") idToken: String = "refresh_token",
+    ): Call<DataUser>
 
+    @Multipart
+    @POST("predict")
+    fun uploadImage(
+        @Part file: MultipartBody.Part
+    ): Call<DetectionResponse>
 }
