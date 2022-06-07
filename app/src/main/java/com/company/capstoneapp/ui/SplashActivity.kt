@@ -2,11 +2,10 @@ package com.company.capstoneapp.ui
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.company.capstoneapp.ApiConfig
 import com.company.capstoneapp.DataUser
 import com.company.capstoneapp.R
@@ -25,39 +24,44 @@ class SplashActivity : AppCompatActivity() {
 
         userData = getSharedPreferences("login_session", MODE_PRIVATE)
         val refreshToken = userData.getString("refreshToken", null).toString()
-        if (refreshToken == "null"){
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-            finish()
-        }else if (refreshToken != "null"){
-            Handler(Looper.getMainLooper()).postDelayed({
 
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            if (refreshToken == "null")
+            {
+                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                finish()
+            }
+            else if (refreshToken != "null")
+            {
                 ApiConfig.getApiService("https://securetoken.googleapis.com/v1/")
-                    .refreshIdToken(
-                        getString(R.string.API_KEY),
-                        refreshToken
-                    ).enqueue(object : Callback<DataUser>{
-                        override fun onResponse(call: Call<DataUser>, response: Response<DataUser>) {
-                            if (response.isSuccessful) {
-                                val responseBody = response.body()
+                        .refreshIdToken(
+                            getString(R.string.API_KEY),
+                            refreshToken
+                        ).enqueue(object : Callback<DataUser>{
+                            override fun onResponse(call: Call<DataUser>, response: Response<DataUser>) {
+                                if (response.isSuccessful) {
+                                    val responseBody = response.body()
 
-                                if (responseBody != null) {
-                                    val dataUser: DataUser = responseBody
-                                    getSharedPreferences("login_session", MODE_PRIVATE)
-                                        .edit()
-                                        .putString("refreshToken", dataUser.refreshToken)
-                                        .putString("idToken", dataUser.idToken)
-                                        .apply()
-                                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-                                    finish()
+                                    if (responseBody != null) {
+                                        val dataUser: DataUser = responseBody
+                                        getSharedPreferences("login_session", MODE_PRIVATE)
+                                            .edit()
+                                            .putString("refreshToken", dataUser.refreshToken)
+                                            .putString("idToken", dataUser.idToken)
+                                            .apply()
+                                        startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                                        finish()
+                                    }
                                 }
                             }
-                        }
 
-                        override fun onFailure(call: Call<DataUser>, t: Throwable) {
+                            override fun onFailure(call: Call<DataUser>, t: Throwable) {
+                                // code ...
+                            }
+                        })
+            }
 
-                        }
-                    })
-            }, 1000)
-        }
+        }, 3200)
     }
 }

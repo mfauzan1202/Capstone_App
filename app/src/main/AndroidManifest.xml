@@ -8,10 +8,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- acceslocation -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:usesCleartextTraffic="true"
@@ -21,7 +19,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.CapstoneApp"
         tools:targetApi="31">
@@ -29,10 +27,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD9QXH9sYidCoRSeJRxc7zr_DRbmhO6ESs" />
- 	<activity
+ 	    <activity
             android:name=".ui.auth.RegisterAddPhotoActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.maps.MapsActivity"
             android:exported="false"
@@ -47,24 +44,19 @@
             android:name=".ui.profile.ChangeProfileActivity"
             android:exported="false" />
         <activity
-            android:name="com.company.capstoneapp.ui.home.HomeMapActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name="com.company.capstoneapp.ui.DetailActivity"
+            android:name=".ui.DetailActivity"
             android:exported="false" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <activity
             android:name=".ui.camera.CameraActivity"
             android:exported="false" />
         <activity
-            android:name="com.company.capstoneapp.ui.home.HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.RegisterActivity"
@@ -73,11 +65,10 @@
             android:name=".ui.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.company.capstoneapp.ui.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

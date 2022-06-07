@@ -21,8 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
-            android:layout_marginLeft="16dp"
-            android:text="Profil"
+            android:layout_marginStart="16dp"
+            android:text="@string/profil"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -69,11 +69,28 @@
         tools:text="yudapratama858@gmail.com" />
 
     <TextView
-        android:id="@+id/tv_changeName"
+        android:id="@+id/tv_favorite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/border_bottom_profile_screen"
+        android:text="@string/favorit"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_arrow_forward_ios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+    <TextView
+        android:id="@+id/tv_changeName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/border_bottom_profile_screen"
         android:text="@string/change_profile"
@@ -83,7 +100,7 @@
         app:drawableEndCompat="@drawable/ic_arrow_forward_ios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_favorite" />
 
     <TextView
         android:id="@+id/tv_changePassword"
@@ -145,7 +162,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="25dp"
-        android:text="Keluar"
+        android:text="@string/keluar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
@@ -179,6 +196,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="50dp"
         app:tint="@null"
-        app:borderWidth="10dp"/>
+        app:borderWidth="10dp"
+        android:contentDescription="@string/scan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

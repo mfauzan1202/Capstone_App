@@ -1,15 +1,14 @@
 package com.company.capstoneapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityDetailBinding
-import com.company.capstoneapp.dataclass.Culinary
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase

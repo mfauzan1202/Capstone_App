@@ -3,30 +3,25 @@ package com.company.capstoneapp.ui.maps
 import android.Manifest
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityMapsBinding
-import com.company.capstoneapp.dataclass.Culinary
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -50,11 +45,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         database = Firebase.database.reference
 
-        val toolbar = binding.toolbar as androidx.appcompat.widget.Toolbar
+        val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar()?.setDisplayShowHomeEnabled(true);
-        getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_ios_white_24);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_ios_white_24)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -77,7 +72,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // beri penanda lokasi dummy terkini pengguna
         val userLocationDummy = LatLng(-0.4791039926444693, 117.18969923573819)
-        mMap.addMarker(MarkerOptions().position(userLocationDummy).title("Lokasi Dummy Anda"))
+        mMap.addMarker(
+            MarkerOptions()
+                .position(userLocationDummy)
+                .title("Lokasi Dummy Anda")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocationDummy, 18f))
 
         // dapatkan titik-titik lokasi kuliner di sekitar
@@ -129,7 +128,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (location != null) {
                     lastLocation = location
                     val userLocationReal = LatLng(location.latitude, location.longitude)
-                    mMap.addMarker(MarkerOptions().position(userLocationReal).title("Lokasi Real Anda"))
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .position(userLocationReal)
+                            .title("Lokasi Real Anda")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                    )
                 }
             }
         } else {
@@ -141,31 +145,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val markerOptions = MarkerOptions()
             .position(location)
             .title(culinaryName)
-            .icon(vectorToBitmap(R.drawable.ic_culinary_marker, Color.parseColor("#FBB97F")))
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_culinary_marker))
 
         mMap.addMarker(markerOptions)
-    }
-
-    private fun vectorToBitmap(@DrawableRes id: Int, @ColorInt color: Int): BitmapDescriptor {
-        val vectorDrawable = ResourcesCompat.getDrawable(resources, id, null)
-
-        if (vectorDrawable == null) {
-            Log.e("BitmapHelper", "Resource not found")
-            return BitmapDescriptorFactory.defaultMarker()
-        }
-
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-
-        val canvas = Canvas(bitmap)
-        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
-        DrawableCompat.setTint(vectorDrawable, color)
-        vectorDrawable.draw(canvas)
-
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
