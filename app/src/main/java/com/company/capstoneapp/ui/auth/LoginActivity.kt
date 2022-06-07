@@ -93,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
                             .putString("idToken", dataUser.idToken)
                             .putString("urlPhoto", dataUser.profilePicture)
                             .putString("lastLocation", "")
+                            .putString("refreshToken", dataUser.refreshToken)
                             .apply()
                         showLoading(false, this@LoginActivity)
                         finishAffinity()
