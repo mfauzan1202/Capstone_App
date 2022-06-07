@@ -19,6 +19,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityMapsBinding
+import com.company.capstoneapp.dataclass.Culinary
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,11 +27,18 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var database: DatabaseReference
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -39,6 +47,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        database = Firebase.database.reference
 
         val toolbar = binding.toolbar as androidx.appcompat.widget.Toolbar
         setSupportActionBar(toolbar)
@@ -66,15 +76,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         markUserLocation()
 
         // beri penanda lokasi dummy terkini pengguna
-        val userLocationDummy = LatLng(-0.49642024438699184, 117.15406987980526)
+        val userLocationDummy = LatLng(-0.4791039926444693, 117.18969923573819)
         mMap.addMarker(MarkerOptions().position(userLocationDummy).title("Lokasi Dummy Anda"))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocationDummy, 18f))
 
-        // beri penanda kuliner dummy di sekitar lokasi pengguna
-        markCulinaryLocation("Pempek Palembang", LatLng(-0.4962844698617552, 117.15354301573664))
-        markCulinaryLocation("Soto Banjar", LatLng(-0.49692557648171365, 117.15397681579003))
-        markCulinaryLocation("Es Cendol", LatLng(-0.4965077410701637, 117.15485717372962))
-        markCulinaryLocation("Nasi Kuning", LatLng(-0.4960261137210052, 117.15433725214507))
+        // dapatkan titik-titik lokasi kuliner di sekitar
+        getDataCulinary()
+    }
+
+    private fun getDataCulinary() {
+        database.child("makanan").limitToFirst(10).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (data in snapshot.children) {
+                    val culinaryName = data.child("name").value.toString()
+                    val latitude = data.child("latitude").value.toString().toDouble()
+                    val longitude = data.child("longitude").value.toString().toDouble()
+                    val location = LatLng(latitude, longitude)
+
+                    // beri penanda kuliner di sekitar lokasi pengguna
+                    markCulinaryLocation(culinaryName, location)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("LOHE", "WKWKWKW EROR")
+            }
+
+        })
     }
 
     private fun setMapStyle() {
