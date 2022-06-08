@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-dataset
-original_dataset
-=======
+./machine_learning/dataset
+./machine_learning/original_dataset
 *.iml
 .gradle
 /local.properties
@@ -17,4 +15,3 @@ original_dataset
 .externalNativeBuild
 .cxx
 local.properties
->>>>>>> origin/master
