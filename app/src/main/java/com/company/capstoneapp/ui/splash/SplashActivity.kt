@@ -1,4 +1,4 @@
-package com.company.capstoneapp.ui
+package com.company.capstoneapp.ui.splash
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -62,6 +62,6 @@ class SplashActivity : AppCompatActivity() {
                         })
             }
 
-        }, 3200)
+        }, 3000)
     }
 }

@@ -17,8 +17,6 @@ import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityHomeBinding
 import com.company.capstoneapp.dataclass.Culinary
-import com.company.capstoneapp.ui.adapter.ListCulinaryAroundAdapter
-import com.company.capstoneapp.ui.adapter.ListCulinaryRecommendationAdapter
 import com.company.capstoneapp.ui.camera.ResultCameraActivity
 import com.company.capstoneapp.ui.maps.MapsActivity
 import com.company.capstoneapp.ui.profile.ProfileActivity

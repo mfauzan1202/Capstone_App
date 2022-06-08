@@ -1,4 +1,4 @@
-package com.company.capstoneapp.ui
+package com.company.capstoneapp.ui.detail
 
 import android.os.Bundle
 import android.util.Log
@@ -6,9 +6,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
+import com.company.capstoneapp.database.Culinary
 import com.company.capstoneapp.databinding.ActivityDetailBinding
+import com.company.capstoneapp.viewmodel.CulinaryViewModel
+import com.company.capstoneapp.viewmodel.ViewModelFactory
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -18,12 +22,16 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var database: DatabaseReference
+    private lateinit var culinaryViewModel: CulinaryViewModel
+    private var culinary: Culinary? = null
     private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        culinaryViewModel = obtainViewModel(this)
 
         isFavorite = false
 
@@ -39,33 +47,40 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    fun getCulinary(culinaryId: String) {
+    private fun getCulinary(culinaryId: String) {
         database = Firebase.database.reference.child("makanan")
+
+        Thread(Runnable {
+            isFavorite = culinaryViewModel.isFavorite(culinaryId)
+        }).start()
 
         database.child(culinaryId).get().addOnSuccessListener {
 
             if (it.exists()) {
+
+                // variables
+                val link = it.child("link").value.toString()
+                val name = it.child("name").value.toString()
+                val rate = it.child("rate").value.toString()
+                val description = it.child("description").value.toString().replace("\\n", "\n")
+
                 // set image
                 Glide.with(this)
-                    .load(it.child("link").value)
+                    .load(link)
                     .into(binding.itemImage)
 
                 // set logo halal
                 if (it.child("halal").value == false) {
-                    Log.e("MAKANAN_HARAM", "INI HARAM " + it.child("name").value.toString())
                     binding.itemHalal.setImageResource(R.drawable.ic_nonhalal)
                 }
 
-                // set name & rate
-                binding.itemName.text = it.child("name").value.toString()
-                binding.itemRate.text = it.child("rate").value.toString()
-
-                // set description
-                val description = it.child("description").value.toString().replace("\\n", "\n")
+                // set attribute
+                binding.itemName.text = name
+                binding.itemRate.text = rate
                 binding.itemDescription.text = description
 
                 // set icon star
-                var yellowStar = it.child("rate").value.toString().toDouble()
+                var yellowStar = rate.toDouble()
                 yellowStar = floor(yellowStar)
 
                 binding.icStar1.apply {
@@ -98,12 +113,34 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
 
+                // set data on culinary variable
+                culinary = Culinary(
+                    id = culinaryId,
+                    name = name,
+                    link = link,
+                    rate = rate.toDouble()
+                )
+
+                // set button favorite
+                isFavoriteCulinary()
+
             } else {
-                 // makanan tidak ditemukan
+                Toast.makeText(this@DetailActivity, "Data kuliner tidak ditemukan", Toast.LENGTH_LONG).show()
             }
 
         }.addOnFailureListener {
             Log.e("FIREBASE_GAGAL", it.toString())
+        }
+    }
+
+    private fun isFavoriteCulinary() {
+        // set button favorite if isFavorite = true
+        if (isFavorite) {
+            binding.btnLike.apply {
+                backgroundTintList =
+                    ContextCompat.getColorStateList(this@DetailActivity, R.color.like_red)
+                binding.btnLike.setImageResource(R.drawable.ic_favorite_checked)
+            }
         }
     }
 
@@ -113,21 +150,30 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
             R.id.btn_like -> {
-                isFavorite = !isFavorite
+                if (culinary != null) {
+                    isFavorite = !isFavorite
 
-                binding.btnLike.apply {
-                    if (isFavorite) {
-                        backgroundTintList = ContextCompat.getColorStateList(this@DetailActivity, R.color.like_red)
-                        binding.btnLike.setImageResource(R.drawable.ic_favorite_checked)
-                        Toast.makeText(this@DetailActivity, "Disukai", Toast.LENGTH_SHORT).show()
-                    } else {
-                        backgroundTintList = ContextCompat.getColorStateList(this@DetailActivity, R.color.like_gray)
-                        binding.btnLike.setImageResource(R.drawable.ic_favorite_uncheck)
-                        Toast.makeText(this@DetailActivity, "Batal Suka", Toast.LENGTH_SHORT).show()
+                    binding.btnLike.apply {
+                        if (isFavorite) {
+                            culinaryViewModel.insert(culinary!!)
+                            backgroundTintList = ContextCompat.getColorStateList(this@DetailActivity, R.color.like_red)
+                            binding.btnLike.setImageResource(R.drawable.ic_favorite_checked)
+                            Toast.makeText(this@DetailActivity, "Disukai", Toast.LENGTH_SHORT).show()
+                        } else {
+                            culinaryViewModel.delete(culinary!!)
+                            backgroundTintList = ContextCompat.getColorStateList(this@DetailActivity, R.color.like_gray)
+                            binding.btnLike.setImageResource(R.drawable.ic_favorite_uncheck)
+                            Toast.makeText(this@DetailActivity, "Batal Suka", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): CulinaryViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[CulinaryViewModel::class.java]
     }
 
     companion object {

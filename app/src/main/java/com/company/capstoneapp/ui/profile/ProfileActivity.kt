@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityProfileBinding
 import com.company.capstoneapp.ui.auth.LoginActivity
+import com.company.capstoneapp.ui.favorite.FavoriteActivity
 import com.company.capstoneapp.ui.home.HomeActivity
 
 
@@ -30,6 +31,10 @@ class ProfileActivity : AppCompatActivity() {
             Glide.with(this@ProfileActivity)
                 .load(userData.getString("urlPhoto", null))
                 .into(ivAvatar)
+
+            tvFavorite.setOnClickListener {
+                startActivity(Intent(this@ProfileActivity, FavoriteActivity::class.java))
+            }
 
             tvChangeName.setOnClickListener{
                 startActivity(Intent(this@ProfileActivity, ChangeProfileActivity::class.java))
