@@ -44,4 +44,6 @@
     <string name="profil">Profil</string>
     <string name="keluar">Keluar</string>
     <string name="favorit">Kuliner Favorit</string>
+    <string name="duration">Duration: %1$s</string>
+    <string name="distance">(%1$s)</string>
 </resources>
