@@ -88,6 +88,10 @@ class ChangeProfileActivity : AppCompatActivity() {
                 ImagePicker.with(this@ChangeProfileActivity)
                     .start()
             }
+
+            ivBack.setOnClickListener{
+                finish()
+            }
         }
     }
 
@@ -117,7 +121,7 @@ class ChangeProfileActivity : AppCompatActivity() {
             .changeProfile(
                 getString(R.string.API_KEY),
                 userData.getString("idToken", null),
-                displayName = name,
+                displayName = name
             ).enqueue(object : Callback<DataUser> {
                 override fun onResponse(
                     call: Call<DataUser>,
@@ -170,7 +174,6 @@ class ChangeProfileActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
 
-                val oldName = userData.getString("name", null).toString()
                 ref.downloadUrl.addOnSuccessListener {
                     saveToServer(it.toString())
                 }
