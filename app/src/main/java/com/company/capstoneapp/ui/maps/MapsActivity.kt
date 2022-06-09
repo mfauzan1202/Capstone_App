@@ -7,9 +7,15 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.akexorcist.googledirection.GoogleDirection
+import com.akexorcist.googledirection.constant.AvoidType
+import com.akexorcist.googledirection.model.Direction
+import com.akexorcist.googledirection.util.DirectionConverter
+import com.akexorcist.googledirection.util.execute
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -28,6 +34,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -122,18 +129,57 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
+            var userLocationReal: LatLng
             mMap.isMyLocationEnabled = true
 
             fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
                 if (location != null) {
                     lastLocation = location
-                    val userLocationReal = LatLng(location.latitude, location.longitude)
+                    userLocationReal = LatLng(location.latitude, location.longitude)
                     mMap.addMarker(
                         MarkerOptions()
                             .position(userLocationReal)
                             .title("Lokasi Real Anda")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                     )
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocationReal, 18f))
+
+                    val dest = intent.getParcelableExtra<LatLng>("latlng")
+                    if (dest != null){
+                        GoogleDirection.withServerKey("AIzaSyD9QXH9sYidCoRSeJRxc7zr_DRbmhO6ESs")
+                            .from(userLocationReal)
+                            .to(dest!!)
+                            .avoid(AvoidType.FERRIES)
+                            .avoid(AvoidType.HIGHWAYS)
+                            .execute(
+                                    onDirectionSuccess = { direction: Direction? ->
+                                        if(direction!!.isOK()) {
+                                            val route = direction.routeList[0]
+                                            val leg = route.legList[0]
+                                            val directionPositionList: ArrayList<LatLng> = leg.directionPoint
+                                            val polylineOptions = DirectionConverter.createPolyline(
+                                                this,
+                                                directionPositionList,
+                                                5,
+                                                resources.getColor(R.color.corn_blue)
+                                            )
+                                            mMap.addPolyline(polylineOptions)
+
+                                            val distance = leg.distance.text.toString()
+                                            val duration = leg.duration.text.toString()
+
+                                            binding.detailInfo.visibility = View.VISIBLE
+                                            binding.tvDistance.text = resources.getString(R.string.distance, distance)
+                                            binding.tvTime.text = resources.getString(R.string.duration, duration)
+                                        } else {
+                                            // Do something
+                                        }
+                                    },
+                                    onDirectionFailure = { t: Throwable ->
+                                        // Do something
+                                    }
+                            )
+                    }
                 }
             }
         } else {
@@ -165,4 +211,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 markUserLocation()
             }
         }
+
+
 }

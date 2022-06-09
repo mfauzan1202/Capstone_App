@@ -1,17 +1,27 @@
 package com.company.capstoneapp.ui
 
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityDetailBinding
+import com.company.capstoneapp.reduceFileImage
+import com.company.capstoneapp.rotateBitmap
+import com.company.capstoneapp.ui.camera.CameraActivity
+import com.company.capstoneapp.ui.camera.ResultCameraActivity
+import com.company.capstoneapp.ui.maps.MapsActivity
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.io.File
 import kotlin.math.floor
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,6 +29,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var database: DatabaseReference
     private var isFavorite: Boolean = false
+    private lateinit var latlng: LatLng
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +48,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
             getCulinary(culinaryId)
         }
 
+        binding.btnMaps.setOnClickListener(this)
     }
 
     fun getCulinary(culinaryId: String) {
@@ -98,6 +110,10 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
 
+                val lat = it.child("latitude").value.toString().toDouble()
+                val lng = it.child("longitude").value.toString().toDouble()
+                latlng = LatLng(lat, lng)
+
             } else {
                  // makanan tidak ditemukan
             }
@@ -127,8 +143,16 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
+
+            R.id.btn_maps -> {
+                Log.v("GANTENG", latlng.toString())
+                val intent = Intent(this@DetailActivity, MapsActivity::class.java)
+                intent.putExtra("latlng", latlng)
+                startActivity(intent)
+            }
         }
     }
+
 
     companion object {
         const val EXTRA_ID = "extra_id"

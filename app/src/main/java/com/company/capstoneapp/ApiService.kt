@@ -51,4 +51,11 @@ interface ApiService {
     fun uploadImage(
         @Part file: MultipartBody.Part
     ): Call<DetectionResponse>
+
+    @GET("json")
+    fun getDirection(
+        @Query("origin") origin: String,
+        @Query("destination") destination: String,
+        @Query("key") key: String,
+    ): Call<DirectionResponse>
 }

@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.company.capstoneapp.R
 import com.company.capstoneapp.databinding.ActivityProfileBinding
 import com.company.capstoneapp.ui.auth.LoginActivity
+import com.company.capstoneapp.ui.camera.ResultCameraActivity
 import com.company.capstoneapp.ui.home.HomeActivity
 
 
@@ -52,6 +53,9 @@ class ProfileActivity : AppCompatActivity() {
                 finishAffinity()
                 startActivity(Intent(this@ProfileActivity, HomeActivity::class.java))
                 return@setOnMenuItemClickListener false
+            }
+            floatingActionButton.setOnClickListener {
+                startActivity(Intent(this@ProfileActivity, ResultCameraActivity::class.java))
             }
         }
     }
