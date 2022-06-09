@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.auth.RegisterActivity">
+    tools:context=".activity.auth.RegisterActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading2">
 
-        <com.company.capstoneapp.view.CustomNameEditText
+        <com.company.capstoneapp.customview.CustomNameEditText
             android:id="@+id/et_username"
             style="@style/style_input_text"
             android:background="@drawable/custom_edit_text" />
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_username">
 
-        <com.company.capstoneapp.view.CustomEmailEditText
+        <com.company.capstoneapp.customview.CustomEmailEditText
             android:id="@+id/et_email"
             style="@style/style_input_text"
             android:background="@drawable/custom_edit_text" />
@@ -95,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ti_email"
         app:passwordToggleEnabled="true">
 
-        <com.company.capstoneapp.view.CustomPassEditText
+        <com.company.capstoneapp.customview.CustomPassEditText
             android:id="@+id/et_password"
             style="@style/style_input_text"
             android:background="@drawable/custom_edit_text" />
@@ -116,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ti_password"
         app:passwordToggleEnabled="true">
 
-        <com.company.capstoneapp.view.CustomPassEditText
+        <com.company.capstoneapp.customview.CustomPassEditText
             android:id="@+id/et_verify_password"
             style="@style/style_input_text"
             android:background="@drawable/custom_edit_text" />

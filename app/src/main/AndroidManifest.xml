@@ -5,67 +5,71 @@
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- internet -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- acceslocation -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.CapstoneApp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD9QXH9sYidCoRSeJRxc7zr_DRbmhO6ESs" />
- 	    <activity
-            android:name=".ui.auth.RegisterAddPhotoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.maps.MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
-        <activity
-            android:name=".ui.camera.ResultCameraActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.profile.ChangePasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.profile.ChangeProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.profile.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.DetailActivity"
-            android:exported="false" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <activity
-            android:name=".ui.camera.CameraActivity"
+            android:name=".activity.auth.RegisterAddPhotoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".activity.maps.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".activity.camera.ResultCameraActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.RegisterActivity"
+            android:name=".activity.favorite.FavoriteActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name=".activity.profile.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".activity.profile.ChangeProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.detail.DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.camera.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.home.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.auth.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

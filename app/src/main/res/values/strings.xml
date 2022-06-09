@@ -46,4 +46,5 @@
     <string name="favorit">Kuliner Favorit</string>
     <string name="duration">Duration: %1$s</string>
     <string name="distance">(%1$s)</string>
+    <string name="favorite_empty">Belum ada kuliner favorit</string>
 </resources>

@@ -1,10 +1,11 @@
 package com.company.capstoneapp
 
+import com.company.capstoneapp.dataclass.DataUser
+import com.company.capstoneapp.dataclass.DetectionResponse
+import com.company.capstoneapp.dataclass.DirectionResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
-import java.io.File
 
 
 interface ApiService {
