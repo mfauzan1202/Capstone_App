@@ -65,6 +65,10 @@ class ChangePasswordActivity : AppCompatActivity() {
                     handleChangePassword(newPass)
                 }
             }
+
+            ivBack.setOnClickListener{
+                finish()
+            }
         }
     }
 
@@ -80,22 +84,32 @@ class ChangePasswordActivity : AppCompatActivity() {
                     response: Response<DataUser>
                 ) {
                     if (response.isSuccessful) {
-                        showLoading(false, this@ChangePasswordActivity)
-                        getSharedPreferences("login_session", MODE_PRIVATE)
-                            .edit()
-                            .putString("password", newPass)
-                            .apply()
-                        Toast.makeText(
-                            this@ChangePasswordActivity,
-                            "Ubah Pass Berhasil",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        finishAffinity()
-                        startActivity(
-                            Intent(
-                                this@ChangePasswordActivity, ProfileActivity::class.java
+
+                        val responseBody = response.body()
+
+                        if (responseBody != null) {
+
+                            val dataUser: DataUser = responseBody
+
+                            showLoading(false, this@ChangePasswordActivity)
+                            getSharedPreferences("login_session", MODE_PRIVATE)
+                                .edit()
+                                .putString("password", newPass)
+                                .putString("refreshToken", dataUser.refreshToken)
+                                .putString("idToken", dataUser.idToken)
+                                .apply()
+                            Toast.makeText(
+                                this@ChangePasswordActivity,
+                                "Ubah Pass Berhasil",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            finishAffinity()
+                            startActivity(
+                                Intent(
+                                    this@ChangePasswordActivity, ProfileActivity::class.java
+                                )
                             )
-                        )
+                        }
                     }else{
                         showLoading(false, this@ChangePasswordActivity)
                         Toast.makeText(
